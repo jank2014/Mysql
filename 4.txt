@@ -1,0 +1,321 @@
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| test12           |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+21 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user12(
+    -> id TINYINT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> card CHAR(18) NOT NULL,
+    -> test VARCHAR(20) NOT NULL,
+    -> test1 VARCHAR(32) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user12( id TINYINT UNSIGNED KEY AUTO_INCREMENT, username VARCHAR(20) NOT NULL, card CHAR(18) NOT NULL, test VARCHAR(20) NOT NULL, test1 VARCHAR(32) NOT NULL );
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| test12           |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user12           |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+22 rows in set (0.00 sec)
+
+mysql> DESC user12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   |     | NULL    |                |
+| card     | char(18)            | NO   |     | NULL    |                |
+| test     | varchar(20)         | NO   |     | NULL    |                |
+| test1    | varchar(32)         | NO   |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESC user12\G
+*************************** 1. row ***************************
+  Field: id
+   Type: tinyint(3) unsigned
+   Null: NO
+    Key: PRI
+Default: NULL
+  Extra: auto_increment
+*************************** 2. row ***************************
+  Field: username
+   Type: varchar(20)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 3. row ***************************
+  Field: card
+   Type: char(18)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 4. row ***************************
+  Field: test
+   Type: varchar(20)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 5. row ***************************
+  Field: test1
+   Type: varchar(32)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE user12 ADD UNIQUE(username);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user12\G
+*************************** 1. row ***************************
+  Field: id
+   Type: tinyint(3) unsigned
+   Null: NO
+    Key: PRI
+Default: NULL
+  Extra: auto_increment
+*************************** 2. row ***************************
+  Field: username
+   Type: varchar(20)
+   Null: NO
+    Key: UNI
+Default: NULL
+  Extra: 
+*************************** 3. row ***************************
+  Field: card
+   Type: char(18)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 4. row ***************************
+  Field: test
+   Type: varchar(20)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 5. row ***************************
+  Field: test1
+   Type: varchar(32)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+5 rows in set (0.00 sec)
+
+mysql> DESC user12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| card     | char(18)            | NO   |     | NULL    |                |
+| test     | varchar(20)         | NO   |     | NULL    |                |
+| test1    | varchar(32)         | NO   |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user12 ADD CONSTRAINT symbol uni_card UNIQUE KEY(card);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'uni_card UNIQUE KEY(card)' at line 1
+mysql> ALTER TABLE user12 ADD CONSTRAINT symbol uni_card UNIQUE KEY(card);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'uni_card UNIQUE KEY(card)' at line 1
+mysql> ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE KEY uni_card(card);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| card     | char(18)            | NO   | UNI | NULL    |                |
+| test     | varchar(20)         | NO   |     | NULL    |                |
+| test1    | varchar(32)         | NO   |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE user12;
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                  |
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user12 | CREATE TABLE `user12` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `card` char(18) NOT NULL,
+  `test` varchar(20) NOT NULL,
+  `test1` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `uni_card` (`card`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++--------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE user12 ADD CONSTRAINT symbol UNIQUE INDEX mulUni_test_test1(test,test1);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| card     | char(18)            | NO   | UNI | NULL    |                |
+| test     | varchar(20)         | NO   | MUL | NULL    |                |
+| test1    | varchar(32)         | NO   |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE user12;
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                                                                                                                     |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user12 | CREATE TABLE `user12` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `card` char(18) NOT NULL,
+  `test` varchar(20) NOT NULL,
+  `test1` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `uni_card` (`card`),
+  UNIQUE KEY `mulUni_test_test1` (`test`,`test1`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> ALTER TABLE user12 DROP username;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user12;
++-------+---------------------+------+-----+---------+----------------+
+| Field | Type                | Null | Key | Default | Extra          |
++-------+---------------------+------+-----+---------+----------------+
+| id    | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| card  | char(18)            | NO   | UNI | NULL    |                |
+| test  | varchar(20)         | NO   | MUL | NULL    |                |
+| test1 | varchar(32)         | NO   |     | NULL    |                |
++-------+---------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user12 DROP KEY uni_card;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE user12 ENGINE=MyISAM;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user12;
++-------+---------------------+------+-----+---------+----------------+
+| Field | Type                | Null | Key | Default | Extra          |
++-------+---------------------+------+-----+---------+----------------+
+| id    | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| card  | char(18)            | NO   |     | NULL    |                |
+| test  | varchar(20)         | NO   | MUL | NULL    |                |
+| test1 | varchar(32)         | NO   |     | NULL    |                |
++-------+---------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SHOW CREATE user12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user12' at line 1
+mysql> SHOW CREATE TABLE user12;
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                          |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user12 | CREATE TABLE `user12` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `card` char(18) NOT NULL,
+  `test` varchar(20) NOT NULL,
+  `test1` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mulUni_test_test1` (`test`,`test1`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE user12 ENGINE=INNODB;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE user12;
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                          |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user12 | CREATE TABLE `user12` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `card` char(18) NOT NULL,
+  `test` varchar(20) NOT NULL,
+  `test1` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mulUni_test_test1` (`test`,`test1`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++--------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> \t

@@ -1,0 +1,724 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csvt               |
+| hsc                |
+| jzopen_test        |
+| jzopen_v1          |
+| jzopen_v2          |
+| maizi1             |
+| maizi3             |
+| mysql              |
+| ocmf_v1            |
+| ocr_v2             |
+| opencmf_corethinkv |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
++--------------------+
+16 rows in set (0.01 sec)
+
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| yeartest         |
++------------------+
+19 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user10(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,_
+    -> username VARCHAR(20) NOT NULL NUIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT ‘979890264’,
+    -> age TINYINT UNSIGNED DEFAULT 18,
+    -> addr VARCHAR(200) NOT NULL DEFAULT ‘北京’,
+    -> sallary FLOAT(6,2),
+    -> regTime  INT UNSIGNED,
+    -> face CHAR(100) NOT NULL DEFAULT ‘default.jpg’
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'username VARCHAR(20) NOT NULL NUIQUE,
+password CHAR(32) NOT NULL,
+email VARCHAR(' at line 3
+mysql> CREATE TABLE IF NOT EXISTS user10(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,_
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT ‘979890264’,
+    -> age TINYINT UNSIGNED DEFAULT 18,
+    -> addr VARCHAR(200) NOT NULL DEFAULT ‘北京’,
+    -> sallary FLOAT(6,2),
+    -> regTime  INT UNSIGNED,
+    -> face CHAR(100) NOT NULL DEFAULT ‘default.jpg’
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'username VARCHAR(20) NOT NULL UNIQUE,
+password CHAR(32) NOT NULL,
+email VARCHAR(' at line 3
+mysql> CREATE TABLE IF NOT EXISTS user10(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT '979890264',
+    -> age TINYINT UNSIGNED DEFAULT 18,
+    -> addr VARCHAR(200) NOT NULL DEFAULT '北京',
+    -> sallary FLOAT(6,2),
+    -> regTime  INT UNSIGNED,
+    -> face CHAR(100) NOT NULL DEFAULT 'default.jpg'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'addr'
+mysql> CREATE TABLE IF NOT EXISTS user10(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT '979890264',
+    -> age TINYINT UNSIGNED DEFAULT 18,
+    -> address VARCHAR(200) NOT NULL,
+    -> sallary FLOAT(6,2),
+    -> regTime  INT UNSIGNED,
+    -> face CHAR(100) NOT NULL DEFAULT 'default.jpg'
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC user10;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
++----------+---------------------+------+-----+-------------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> DESC user10\G
+*************************** 1. row ***************************
+  Field: id
+   Type: int(10) unsigned
+   Null: NO
+    Key: PRI
+Default: NULL
+  Extra: auto_increment
+*************************** 2. row ***************************
+  Field: username
+   Type: varchar(20)
+   Null: NO
+    Key: UNI
+Default: NULL
+  Extra: 
+*************************** 3. row ***************************
+  Field: password
+   Type: char(32)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 4. row ***************************
+  Field: email
+   Type: varchar(50)
+   Null: NO
+    Key: 
+Default: 979890264
+  Extra: 
+*************************** 5. row ***************************
+  Field: age
+   Type: tinyint(3) unsigned
+   Null: YES
+    Key: 
+Default: 18
+  Extra: 
+*************************** 6. row ***************************
+  Field: address
+   Type: varchar(200)
+   Null: NO
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 7. row ***************************
+  Field: sallary
+   Type: float(6,2)
+   Null: YES
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 8. row ***************************
+  Field: regTime
+   Type: int(10) unsigned
+   Null: YES
+    Key: 
+Default: NULL
+  Extra: 
+*************************** 9. row ***************************
+  Field: face
+   Type: char(100)
+   Null: NO
+    Key: 
+Default: default.jpg
+  Extra: 
+9 rows in set (0.00 sec)
+
+mysql> DESC user10;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
++----------+---------------------+------+-----+-------------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user10 RENAME TO user9;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+20 rows in set (0.01 sec)
+
+mysql> RENAME TABLE user9 TO user11;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user11           |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| yeartest         |
++------------------+
+20 rows in set (0.00 sec)
+
+mysql> RENAME TABLE user11 TO user9;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+20 rows in set (0.01 sec)
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
++----------+---------------------+------+-----+-------------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 ADD card VARCHAR(18);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 ADD test1 VARCHAR(18) NOT NULL UNIQUE;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test1    | varchar(18)         | NO   | UNI | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+11 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 ADD test2 VARCHAR(20) NOT NULL FIRST;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test1    | varchar(18)         | NO   | UNI | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+12 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 ADD test2 VARCHAR(20) NOT NULL DEFAULT 100 AFTER username;
+ERROR 1060 (42S21): Duplicate column name 'test2'
+mysql> ALTER TABLE user9 ADD test3 VARCHAR(20) NOT NULL DEFAULT 100 AFTER username;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| test3    | varchar(20)         | NO   |     | 100         |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test1    | varchar(18)         | NO   | UNI | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| test3    | varchar(20)         | NO   |     | 100         |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test1    | varchar(18)         | NO   | UNI | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 ADD test4 NOT NULL DEFAULT 123 AFTER password,ADD test5 FLOAT(6,2) FIRST,ADD test6 SET('A','B','C');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL DEFAULT 123 AFTER password,ADD test5 FLOAT(6,2) FIRST,ADD test6 SET('A'' at line 1
+mysql> ALTER TABLE user9 ADD test4 INT NOT NULL DEFAULT 123 AFTER password,
+    -> ADD test5 FLOAT(6,2) FIRST,
+    -> ADD test6 SET('A','B','C');
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL        |                |
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| test3    | varchar(20)         | NO   |     | 100         |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| test4    | int(11)             | NO   |     | 123         |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| address  | varchar(200)        | NO   |     | NULL        |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test1    | varchar(18)         | NO   | UNI | NULL        |                |
+| test6    | set('A','B','C')    | YES  |     | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+16 rows in set (0.00 sec)
+
+mysql> ALTER user9 DROP test1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user9 DROP test1' at line 1
+mysql> ALTER TABLEuser9 DROP test1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLEuser9 DROP test1' at line 1
+mysql> ALTER TABLE user9 DROP test1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE user9 
+    -> ADD test9 INT NOT NULL DEFAULT 10 AFTER sex,
+    -> DROP addr;
+ERROR 1054 (42S22): Unknown column 'sex' in 'user9'
+mysql> ALTER TABLE user9 
+    -> ADD test9 INT NOT NULL DEFAULT 10 AFTER age,
+    -> DROP addr;
+ERROR 1091 (42000): Can't DROP 'addr'; check that column/key exists
+mysql> ALTER TABLE user9 
+    -> ADD test9 INT NOT NULL DEFAULT 10 AFTER age,
+    -> DROP address;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL        |                |
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| test3    | varchar(20)         | NO   |     | 100         |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| test4    | int(11)             | NO   |     | 123         |                |
+| email    | varchar(50)         | NO   |     | 979890264   |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| test9    | int(11)             | NO   |     | 10          |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test6    | set('A','B','C')    | YES  |     | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 MODIFY email VARCHAR(200);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-------------+----------------+
+| Field    | Type                | Null | Key | Default     | Extra          |
++----------+---------------------+------+-----+-------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL        |                |
+| test2    | varchar(20)         | NO   |     | NULL        |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL        | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL        |                |
+| test3    | varchar(20)         | NO   |     | 100         |                |
+| password | char(32)            | NO   |     | NULL        |                |
+| test4    | int(11)             | NO   |     | 123         |                |
+| email    | varchar(200)        | YES  |     | NULL        |                |
+| age      | tinyint(3) unsigned | YES  |     | 18          |                |
+| test9    | int(11)             | NO   |     | 10          |                |
+| sallary  | float(6,2)          | YES  |     | NULL        |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL        |                |
+| face     | char(100)           | NO   |     | default.jpg |                |
+| card     | varchar(18)         | YES  |     | NULL        |                |
+| test6    | set('A','B','C')    | YES  |     | NULL        |                |
++----------+---------------------+------+-----+-------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL DEFAULT 'jankz@jankz.com';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL            |                |
+| test2    | varchar(20)         | NO   |     | NULL            |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| test3    | varchar(20)         | NO   |     | 100             |                |
+| password | char(32)            | NO   |     | NULL            |                |
+| test4    | int(11)             | NO   |     | 123             |                |
+| email    | varchar(200)        | NO   |     | jankz@jankz.com |                |
+| age      | tinyint(3) unsigned | YES  |     | 18              |                |
+| test9    | int(11)             | NO   |     | 10              |                |
+| sallary  | float(6,2)          | YES  |     | NULL            |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL            |                |
+| face     | char(100)           | NO   |     | default.jpg     |                |
+| card     | varchar(18)         | YES  |     | NULL            |                |
+| test6    | set('A','B','C')    | YES  |     | NULL            |                |
++----------+---------------------+------+-----+-----------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 MODIFY card VARCHAR(20) AFTER test9;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL            |                |
+| test2    | varchar(20)         | NO   |     | NULL            |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| test3    | varchar(20)         | NO   |     | 100             |                |
+| password | char(32)            | NO   |     | NULL            |                |
+| test4    | int(11)             | NO   |     | 123             |                |
+| email    | varchar(200)        | NO   |     | jankz@jankz.com |                |
+| age      | tinyint(3) unsigned | YES  |     | 18              |                |
+| test9    | int(11)             | NO   |     | 10              |                |
+| card     | varchar(20)         | YES  |     | NULL            |                |
+| sallary  | float(6,2)          | YES  |     | NULL            |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL            |                |
+| face     | char(100)           | NO   |     | default.jpg     |                |
+| test6    | set('A','B','C')    | YES  |     | NULL            |                |
++----------+---------------------+------+-----+-----------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 MODIFY test9 CHAR(32) NOT NULL DEFAULT 123;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL            |                |
+| test2    | varchar(20)         | NO   |     | NULL            |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| test3    | varchar(20)         | NO   |     | 100             |                |
+| password | char(32)            | NO   |     | NULL            |                |
+| test4    | int(11)             | NO   |     | 123             |                |
+| email    | varchar(200)        | NO   |     | jankz@jankz.com |                |
+| age      | tinyint(3) unsigned | YES  |     | 18              |                |
+| test9    | char(32)            | NO   |     | 123             |                |
+| card     | varchar(20)         | YES  |     | NULL            |                |
+| sallary  | float(6,2)          | YES  |     | NULL            |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL            |                |
+| face     | char(100)           | NO   |     | default.jpg     |                |
+| test6    | set('A','B','C')    | YES  |     | NULL            |                |
++----------+---------------------+------+-----+-----------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> ALTER TABLE user9 CHANGE test9 test10 VARCHAR(20) NOT NULL DEFAULT 'KK';
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC user9;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| test5    | float(6,2)          | YES  |     | NULL            |                |
+| test2    | varchar(20)         | NO   |     | NULL            |                |
+| id       | int(10) unsigned    | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| test3    | varchar(20)         | NO   |     | 100             |                |
+| password | char(32)            | NO   |     | NULL            |                |
+| test4    | int(11)             | NO   |     | 123             |                |
+| email    | varchar(200)        | NO   |     | jankz@jankz.com |                |
+| age      | tinyint(3) unsigned | YES  |     | 18              |                |
+| test10   | varchar(20)         | NO   |     | KK              |                |
+| card     | varchar(20)         | YES  |     | NULL            |                |
+| sallary  | float(6,2)          | YES  |     | NULL            |                |
+| regTime  | int(10) unsigned    | YES  |     | NULL            |                |
+| face     | char(100)           | NO   |     | default.jpg     |                |
+| test6    | set('A','B','C')    | YES  |     | NULL            |                |
++----------+---------------------+------+-----+-----------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS test12(
+    -> id TINYINT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> age TINYINT UNSIGNED
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC user12;
+ERROR 1146 (42S02): Table 'maizi1.user12' doesn't exist
+mysql> DESC test12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| age      | tinyint(3) unsigned | YES  |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>  ALTER TABLE test12 ALTER age SET DEFAULT 12;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC test12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| age      | tinyint(3) unsigned | YES  |     | 12      |                |
++----------+---------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>  ALTER TABLE test12 ALTER age SET DEFAULT 123;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC test12;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL    |                |
+| age      | tinyint(3) unsigned | YES  |     | 123     |                |
++----------+---------------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE test12 ADD email VARCHAR(30);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALERT TABLE test12 ALERT email SET DEFAULT 'jankz@jankz.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ALERT TABLE test12 ALERT email SET DEFAULT 'jankz@jankz.com'' at line 1
+mysql> ALTER TABLE test12 ALTER email SET DEFAULT 'jankz@jankz.com';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC test12;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| age      | tinyint(3) unsigned | YES  |     | 123             |                |
+| email    | varchar(30)         | YES  |     | jankz@jankz.com |                |
++----------+---------------------+------+-----+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE test12 ALTER email VARCHAR(20) NOT NULL UNIQUE DEFAULT 'jankz@jankz.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(20) NOT NULL UNIQUE DEFAULT 'jankz@jankz.com'' at line 1
+mysql> ALTER TABLE test12 ALTER email VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com'' at line 1
+mysql> ALTER TABLE test12 ALTER email VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com'' at line 1
+mysql> ALTER TABLE test12 ALTER email VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(20) NOT NULL UNIQUE SET DEFAULT 'jankz@jankz.com'' at line 1
+mysql>  ALTER TABLE test12 ALTER age DROP DEFAULT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC test12;
++----------+---------------------+------+-----+-----------------+----------------+
+| Field    | Type                | Null | Key | Default         | Extra          |
++----------+---------------------+------+-----+-----------------+----------------+
+| id       | tinyint(3) unsigned | NO   | PRI | NULL            | auto_increment |
+| username | varchar(20)         | NO   | UNI | NULL            |                |
+| age      | tinyint(3) unsigned | YES  |     | NULL            |                |
+| email    | varchar(30)         | YES  |     | jankz@jankz.com |                |
++----------+---------------------+------+-----+-----------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> \t;

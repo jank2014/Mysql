@@ -1,0 +1,24 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cms                |
+| csvt               |
+| hsc                |
+| jzopen_test        |
+| jzopen_v1          |
+| jzopen_v2          |
+| maizi1             |
+| maizi3             |
+| mysql              |
+| ocmf_v1            |
+| ocr_v2             |
+| opencmf_corethinkv |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
++--------------------+
+17 rows in set (0.00 sec)
+

@@ -1,0 +1,2664 @@
+mysql> CREATE TABLE IF NOT EXISTS user13(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(30) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL UNIQUE,
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE IF NOT EXISTS user13(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(30) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL UNIQUE,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> CREATE TABLE IF NOT EXISTS user13(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(30) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> email VARCHAR(50) UNIQUE,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> CREATE TABLE IF NOT EXISTS user13(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(30) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL UNIQUE,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> CREATE TABLE IF NOT EXISTS user13(
+    -> id INT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(30) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL UNIQUE
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| test12           |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user12           |
+| user13           |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+23 rows in set (0.00 sec)
+
+mysql> DESC user21;
+ERROR 1146 (42S02): Table 'maizi1.user21' doesn't exist
+mysql> DESC user13;
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| id       | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(30)      | NO   |     | NULL    |                |
+| password | varchar(32)      | NO   |     | NULL    |                |
+| email    | varchar(50)      | NO   | UNI | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT TABLE user13(username,password,email) VALUES('A','B','C');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE user13(username,password,email) VALUES('A','B','C')' at line 1
+mysql> INSERT user13(username,password,email) VALUES('A','B','C');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT user13(username,password,email) VALUES('A','B','C'),('g','s','d');
+ERROR 1062 (23000): Duplicate entry 'C' for key 'email'
+mysql>  INSERT user13(username,password,email) VALUES('A','B','C1'),('g','s','d');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+
+| id | username | password | email |
++----+----------+----------+-------+
+|  1 | A        | B        | C     |
+|  4 | A        | B        | C1    |
+|  5 | g        | s        | d     |
++----+----------+----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS testuser(
+    -> id TINYINT UNSIGNED KEY AUTO_INCREMENT,
+    -> username,VARCHAR(20) NOT NULL UNIQUE);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(20) NOT NULL UNIQUE)' at line 3
+mysql> CREATE TABLE IF NOT EXISTS testuser(
+    -> id TINYINT UNSIGNED KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT testuser SELECT id,username FROM user13;
+ERROR 1062 (23000): Duplicate entry 'A' for key 'username'
+mysql> INSERT testuser SELECT id,username FROM user;
+ERROR 1146 (42S02): Table 'maizi1.user' doesn't exist
+mysql> INSERT testuser SELECT id,username FROM user5;
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM testuser;
++----+----------+
+| id | username |
++----+----------+
+|  2 | kaka     |
+|  1 | kng      |
++----+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM user21;
+ERROR 2006 (HY000): MySQL server has gone away
+No connection. Trying to reconnect...
+Connection id:    4
+Current database: maizi1
+
+ERROR 1146 (42S02): Table 'maizi1.user21' doesn't exist
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+
+| id | username | password | email |
++----+----------+----------+-------+
+|  1 | A        | B        | C     |
+|  4 | A        | B        | C1    |
+|  5 | g        | s        | d     |
++----+----------+----------+-------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE user13 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 21;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+-----+
+| id | username | password | email | age |
++----+----------+----------+-------+-----+
+|  1 | A        | B        | C     |  21 |
+|  4 | A        | B        | C1    |  21 |
+|  5 | g        | s        | d     |  21 |
++----+----------+----------+-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE user13 SET age=1;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+-----+
+| id | username | password | email | age |
++----+----------+----------+-------+-----+
+|  1 | A        | B        | C     |   1 |
+|  4 | A        | B        | C1    |   1 |
+|  5 | g        | s        | d     |   1 |
++----+----------+----------+-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> UPDATE user13 SET age=10 WHERE username='A';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+-----+
+| id | username | password | email | age |
++----+----------+----------+-------+-----+
+|  1 | A        | B        | C     |  10 |
+|  4 | A        | B        | C1    |  10 |
+|  5 | g        | s        | d     |   1 |
++----+----------+----------+-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE IF NOT EXISTS cms DEFAULT CHARACTER SET utf8;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE cms;
+Database changed
+mysql> -- 管理员表cms_admin
+mysql> CREATE TABLE cms_admin(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT 'admin@qq.com',
+    -> role ENUM('普通管理员','超级管理员') DEFAULT '普通管理员'
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT cms_admin(username,password,email,role) VALUES('admin','admin','admin@qq.com',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> 
+mysql> INSERT cms_admin(username,password) VALUES('king','king'),
+    -> 
+    -> ('麦子','maizi'),
+    -> 
+    -> ('queen','queen'),
+    -> 
+    -> ('test','test');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- 创建分类表cms_cate
+mysql> CREATE TABLE cms_cate(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> cateName VARCHAR(50) NOT NULL UNIQUE,
+    -> cateDesc VARCHAR(200) NOT NULL DEFAULT ''
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> INSERT cms_cate(cateName,cateDesc) VALUES('国内新闻','聚焦当今最热的国内新闻'),
+    -> ('国际新闻','聚焦当今最热的国际新闻'),
+    -> ('体育新闻','聚焦当今最热的体育新闻'),
+    -> ('军事新闻','聚焦当今最热的军事新闻'),
+    -> ('教育新闻','聚焦当今最热的教育新闻');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- 创建新闻表cms_news
+mysql> CREATE TABLE cms_news(
+    -> id INT UNSIGNED AUTO_INCREMENT KEY,
+    -> title VARCHAR(50) NOT NULL UNIQUE,
+    -> content TEXT,
+    -> clickNum INT UNSIGNED DEFAULT 0,
+    -> pubTime INT UNSIGNED,
+    -> cId TINYINT UNSIGNED NOT NULL COMMENT '新闻所属分类，对应分类表中的id',
+    -> aId TINYINT UNSIGNED NOT NULL COMMENT '哪个管理员发布的，对应管理员表中的id'
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT cms_news(title,content,pubTime,cId,aId) VALUES('亚航客机失联搜救尚无线索 未发求救信号','马来西亚亚洲航空公司一架搭载155名乘客的客机28日早晨从印度尼西亚飞往新加坡途中与空中交通控制塔台失去联系，下落不明。',1419818808,1,2),
+    -> ('北京新开通四条地铁线路 迎接首位客人','12月28日凌晨，随着北京地铁6号线二期、7号线、15号线西段、14号线东段的开通试运营，北京的轨道交通运营里程将再添62公里，共计达到527公里。当日凌晨5时许，北京地铁7号线瓷器口换乘站迎来新线开通的第一位乘客。',1419818108,2,1),
+    -> ('考研政治题多次出现习近平讲话内容','新京报讯 （记者许路阳 (微博)）APEC反腐宣言、国家公祭日、依法治国……昨日，全国硕士研究生招生考试进行首日初试，其中，思想政治理论考题多次提及时事热点，并且多次出现习近平在不同场合的讲话内容。',1419818208,3,2),
+    -> ('深度-曾雪麟：佩兰别重蹈卡马乔覆辙','12月25日是前国足主帅曾雪麟的85岁大寿，恰逢圣诞节，患有尿毒症老爷子带着圣诞帽度过了自己的生日。此前，腾讯记者曾专访曾雪麟，尽管已经退休多年，但老爷子仍旧关心着中国足球，为国足揪心，对于国足近几位的教练，他只欣赏高洪波。对即将征战亚洲杯的国足，老爷子希望佩兰不要重蹈卡马乔的覆辙',1419818308,2,4),
+    -> ('国产JAD-1手枪枪架投入使用 手枪可变"冲锋枪"','日前，JAD-1型多功能手枪枪架通过公安部特种警用装备质量监督检验中心检验，正式投入生产使用。此款多功能枪架由京安盾(北京)警用装备有限公司开发研制，期间经广东省江门市公安特警支队试用，获得好评。',1419818408,4,4),
+    -> ('麦子学院荣获新浪教育大奖','麦子学院最大的职业IT教育平台，获奖了',1419818508,1,5),
+    -> ('麦子学院荣获腾讯教育大奖','麦子学院最大的职业IT教育平台，获奖了',1419818608,1,5),
+    -> ('麦子学院新课上线','麦子学院PHP课程马上上线了，小伙伴快来报名学习哈',1419818708,1,5);
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- 创建身份表 provinces
+mysql> CREATE TABLE provinces(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> proName VARCHAR(10) NOT NULL UNIQUE
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT provinces(proName) VALUES('北京'),
+    -> ('上海'),
+    -> ('深圳'),
+    -> ('广州'),
+    -> ('重庆');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- 创建用户表cms_user
+mysql> CREATE TABLE cms_user(
+    -> id INT UNSIGNED AUTO_INCREMENT KEY,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL,
+    -> email VARCHAR(50) NOT NULL DEFAULT 'user@qq.com',
+    -> regTime INT UNSIGNED NOT NULL,
+    -> face VARCHAR(100) NOT NULL DEFAULT 'user.jpg',
+    -> proId TINYINT UNSIGNED NOT NULL COMMENT '用户所属省份'
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> 
+mysql> INSERT cms_user(username,password,regTime,proId)
+    -> 
+    -> VALUES('张三','zhangsan',1419811708,1),
+    -> ('张三丰','zhangsanfeng',1419812708,2),
+    -> ('章子怡','zhangsan',1419813708,3),
+    -> ('long','long',1419814708,4),
+    -> ('ring','ring',1419815708,2),
+    -> ('queen','queen',1419861708,3),
+    -> ('king','king',1419817708,5),
+    -> ('blek','blek',1419818708,1),
+    -> ('rose','rose',1419821708,2),
+    -> ('lily','lily',1419831708,2),
+    -> ('john','john',1419841708,2);
+Query OK, 11 rows affected (0.00 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> -- 查询
+mysql> SELECT * FROM cms_admin;
++----+----------+----------+--------------+-----------------+
+| id | username | password | email        | role            |
++----+----------+----------+--------------+-----------------+
+|  1 | admin    | admin    | admin@qq.com | 超级管理员      |
+|  2 | king     | king     | admin@qq.com | 普通管理员      |
+|  3 | 麦子     | maizi    | admin@qq.com | 普通管理员      |
+|  4 | queen    | queen    | admin@qq.com | 普通管理员      |
+|  5 | test     | test     | admin@qq.com | 普通管理员      |
++----+----------+----------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT cms_admin.* FROM cms_admin;
++----+----------+----------+--------------+-----------------+
+| id | username | password | email        | role            |
++----+----------+----------+--------------+-----------------+
+|  1 | admin    | admin    | admin@qq.com | 超级管理员      |
+|  2 | king     | king     | admin@qq.com | 普通管理员      |
+|  3 | 麦子     | maizi    | admin@qq.com | 普通管理员      |
+|  4 | queen    | queen    | admin@qq.com | 普通管理员      |
+|  5 | test     | test     | admin@qq.com | 普通管理员      |
++----+----------+----------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询管理员编号和名称
+mysql> 
+mysql> SELECT id,username FROM cms_admin;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT username,id,role FROM cms_admin;
++----------+----+-----------------+
+| username | id | role            |
++----------+----+-----------------+
+| admin    |  1 | 超级管理员      |
+| king     |  2 | 普通管理员      |
+| 麦子     |  3 | 普通管理员      |
+| queen    |  4 | 普通管理员      |
+| test     |  5 | 普通管理员      |
++----------+----+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 表来自于哪个数据库下db_name.tbl_name
+mysql> SELECT id,username,role FROM cms.cms_admin;
++----+----------+-----------------+
+| id | username | role            |
++----+----------+-----------------+
+|  1 | admin    | 超级管理员      |
+|  2 | king     | 普通管理员      |
+|  3 | 麦子     | 普通管理员      |
+|  4 | queen    | 普通管理员      |
+|  5 | test     | 普通管理员      |
++----+----------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 字段来自于哪张表
+mysql> 
+mysql> SELECT cms_admin.id,cms_admin.username FROM cms.cms_admin;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 给表名起别名
+mysql> 
+mysql> SELECT id,username FROM cms_admin AS a;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT id,username FROM cms_admin a;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT a.id,a.username,a.email,a.role FROM cms_admin AS a;
++----+----------+--------------+-----------------+
+| id | username | email        | role            |
++----+----------+--------------+-----------------+
+|  1 | admin    | admin@qq.com | 超级管理员      |
+|  2 | king     | admin@qq.com | 普通管理员      |
+|  3 | 麦子     | admin@qq.com | 普通管理员      |
+|  4 | queen    | admin@qq.com | 普通管理员      |
+|  5 | test     | admin@qq.com | 普通管理员      |
++----+----------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 给字段起别名
+mysql> 
+mysql> SELECT id AS '编号',username AS '用户名',email AS '邮箱',role '角色' FROM cms_admin;
++--------+-----------+--------------+-----------------+
+| 编号   | 用户名    | 邮箱         | 角色            |
++--------+-----------+--------------+-----------------+
+|      1 | admin     | admin@qq.com | 超级管理员      |
+|      2 | king      | admin@qq.com | 普通管理员      |
+|      3 | 麦子      | admin@qq.com | 普通管理员      |
+|      4 | queen     | admin@qq.com | 普通管理员      |
+|      5 | test      | admin@qq.com | 普通管理员      |
++--------+-----------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT a.id AS i,a.username AS u,a.email as e,a.role AS r FROM cms_admin AS a; 
++---+--------+--------------+-----------------+
+| i | u      | e            | r               |
++---+--------+--------------+-----------------+
+| 1 | admin  | admin@qq.com | 超级管理员      |
+| 2 | king   | admin@qq.com | 普通管理员      |
+| 3 | 麦子   | admin@qq.com | 普通管理员      |
+| 4 | queen  | admin@qq.com | 普通管理员      |
+| 5 | test   | admin@qq.com | 普通管理员      |
++---+--------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT id AS proId,proId AS id,username FROM cms_user;
++-------+----+-----------+
+| proId | id | username  |
++-------+----+-----------+
+|     1 |  1 | 张三      |
+|     2 |  2 | 张三丰    |
+|     3 |  3 | 章子怡    |
+|     4 |  4 | long      |
+|     5 |  2 | ring      |
+|     6 |  3 | queen     |
+|     7 |  5 | king      |
+|     8 |  1 | blek      |
+|     9 |  2 | rose      |
+|    10 |  2 | lily      |
+|    11 |  2 | john      |
++-------+----+-----------+
+11 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT 1,2,3,4,5,id,username FROM cms_user;
++---+---+---+---+---+----+-----------+
+| 1 | 2 | 3 | 4 | 5 | id | username  |
++---+---+---+---+---+----+-----------+
+| 1 | 2 | 3 | 4 | 5 |  8 | blek      |
+| 1 | 2 | 3 | 4 | 5 | 11 | john      |
+| 1 | 2 | 3 | 4 | 5 |  7 | king      |
+| 1 | 2 | 3 | 4 | 5 | 10 | lily      |
+| 1 | 2 | 3 | 4 | 5 |  4 | long      |
+| 1 | 2 | 3 | 4 | 5 |  6 | queen     |
+| 1 | 2 | 3 | 4 | 5 |  5 | ring      |
+| 1 | 2 | 3 | 4 | 5 |  9 | rose      |
+| 1 | 2 | 3 | 4 | 5 |  1 | 张三      |
+| 1 | 2 | 3 | 4 | 5 |  2 | 张三丰    |
+| 1 | 2 | 3 | 4 | 5 |  3 | 章子怡    |
++---+---+---+---+---+----+-----------+
+11 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> -- WHERE条件
+mysql> -- 查询编号为1的用户
+mysql> SELECT id,username,email FROM cms_user WHERE id=1;
++----+----------+-------------+
+| id | username | email       |
++----+----------+-------------+
+|  1 | 张三     | user@qq.com |
++----+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT id,username,email FROM cms_user WHERE username='king';
++----+----------+-------------+
+| id | username | email       |
++----+----------+-------------+
+|  7 | king     | user@qq.com |
++----+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号不为1的用户
+mysql> SELECT  * FROM cms_user WHERE id!=1;
++----+-----------+--------------+-------------+------------+----------+-------+
+| id | username  | password     | email       | regTime    | face     | proId |
++----+-----------+--------------+-------------+------------+----------+-------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |
++----+-----------+--------------+-------------+------------+----------+-------+
+10 rows in set (0.01 sec)
+
+mysql> 
+mysql> SELECT  * FROM cms_user WHERE id<>1;
++----+-----------+--------------+-------------+------------+----------+-------+
+| id | username  | password     | email       | regTime    | face     | proId |
++----+-----------+--------------+-------------+------------+----------+-------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |
++----+-----------+--------------+-------------+------------+----------+-------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 添加age字段
+mysql> ALTER TABLE cms_user ADD age TINYINT UNSIGNED DEFAULT 18;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> INSERT cms_user(username,password,regTime,proId,age)
+    -> 
+    -> VALUES('test1','test1',1419811708,1,NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> 
+mysql> -- 查询表中记录age值为NULL
+mysql> SELECT * FROM cms_user WHERE age=NULL;
+Empty set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE age<=>NULL;
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL |
++----+----------+----------+-------------+------------+----------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE age<=>18;
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+11 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- IS NULL 或者IS NOT NULL
+mysql> SELECT * FROM cms_user WHERE age IS NULL;
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL |
++----+----------+----------+-------------+------------+----------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号在3~10之间的用户
+mysql> SELECT * FROM cms_user WHERE id BETWEEN 3 AND 10;
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  4 | long      | long     | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  5 | ring      | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  8 | blek      | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose      | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily      | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+8 rows in set (0.01 sec)
+
+mysql> 
+mysql> -- 查询编号为1，3，5，7，9，11，13，100
+mysql> SELECT * FROM cms_user WHERE id IN(1,3,5,7,9,11,13,100,1000);
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  5 | ring      | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  9 | rose      | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 11 | john      | john     | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询proId为1 和3的用户
+mysql> 
+mysql> SELECT * FROM cms_user WHERE proId IN(1,3);
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  8 | blek      | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+| 12 | test1     | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL |
++----+-----------+----------+-------------+------------+----------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询用户名为king,queen,张三，章子怡的记录
+mysql> SELECT * FROM cms_user WHERE username IN('king','queen','张三','章子怡');
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username IN('KinG','QUEEN','张三','章子怡');
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 模糊查询
+mysql> -- %:代表0个一个或者多个任意字符
+mysql> -- _:代表1个任意字符
+mysql> -- 查询姓张的用户
+mysql> SELECT * FROM cms_user WHERE username LIKE '张%';
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询用户名中包含in的用户
+mysql> SELECT * FROM cms_user WHERE username LIKE '%in%';
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
++----+----------+----------+-------------+------------+----------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username LIKE '%';
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询用户名为3位的用户
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username LIKE '___';
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> --用户名_i%
+    -> SELECT * FROM cms_user WHERE username LIKE '_I%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--用户名_i%
+SELECT * FROM cms_user WHERE username LIKE '_I%'' at line 1
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username LIKE 'king';
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
++----+----------+----------+-------------+------------+----------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username NOT LIKE '_I%';
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+9 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询用户名为king并且密码为king的用户
+mysql> SELECT * FROM cms_user WHERE username='king' AND password='king';
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
++----+----------+----------+-------------+------------+----------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号大于等于3的变量年龄不为NULL的用户
+mysql> 
+mysql> SELECT * FROM cms_user WHERE id>=3 AND age IS NOT NULL;
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  4 | long      | long     | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  5 | ring      | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  8 | blek      | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose      | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily      | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
+| 11 | john      | john     | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+9 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号大于等于3的变量年龄不为NULL的用户 并且proId为的3
+mysql> SELECT * FROM cms_user WHERE id>=3 AND age IS NOT NULL AND proId=3;
++----+-----------+----------+-------------+------------+----------+-------+------+
+| id | username  | password | email       | regTime    | face     | proId | age  |
++----+-----------+----------+-------------+------------+----------+-------+------+
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   18 |
+|  6 | queen     | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   18 |
++----+-----------+----------+-------------+------------+----------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号在5~10的用户并且用户名为4位的用户
+mysql> 
+mysql> SELECT * FROM cms_user WHERE id BETWEEN 5 AND 10 AND username LIKE '____';
++----+----------+----------+-------------+------------+----------+-------+------+
+| id | username | password | email       | regTime    | face     | proId | age  |
++----+----------+----------+-------------+------------+----------+-------+------+
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   18 |
+|  8 | blek     | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   18 |
+|  9 | rose     | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily     | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
++----+----------+----------+-------------+------------+----------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询用户名以张开始或者用户所在身份为2,4的记录
+mysql> SELECT * FROM cms_user WHERE username LIKE '张%' OR proId IN(2,4);
++----+-----------+--------------+-------------+------------+----------+-------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   18 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   18 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 按照用户所属身份分组proId
+mysql> SELECT * FROM cms_user GROUP BY proId;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> -- 向用户表中添加性别字段
+mysql> 
+mysql> ALTER TABLE cms_user ADD sex ENUM('男','女','保密');
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> UPDATE cms_user SET sex='男' WHERE id IN(1,3,5,7,9);
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> 
+mysql> UPDATE cms_user SET sex='女' WHERE id IN(2,4,6,8,10);
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> 
+mysql> UPDATE cms_user SET sex='女' WHERE id IN(2,4,6,8,10);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> 
+mysql> UPDATE cms_user SET sex='保密' WHERE id IN(12,11);
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> 
+mysql> --按照用户性别分组
+    -> SELECT * FROM cms_user GROUP BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--按照用户性别分组
+SELECT * FROM cms_user GROUP BY sex' at line 1
+mysql> 
+mysql> --按照字段位置分组
+    -> SELECT * FROM cms_user GROUP BY 7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--按照字段位置分组
+SELECT * FROM cms_user GROUP BY 7' at line 1
+mysql> 
+mysql> --按照多个字段分组
+    -> 
+    -> SELECT * FROM cms_user GROUP BY sex,proId;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--按照多个字段分组
+
+SELECT * FROM cms_user GROUP BY sex,proId' at line 1
+mysql> 
+mysql> -- 查询编号大于等于5的用户按照sex分组
+mysql> 
+mysql> SELECT * FROM cms_user WHERE id>=5 GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> -- 查询id,sex,用户名详情按照性别分组
+mysql> SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> --查询proId，性别详情，注册时间详情，用户名详情 安装proId
+    -> SELECT proId,GROUP_CONCAT(username),GROUP_CONCAT(sex),GROUP_CONCAT(regTime)
+    -> FROM cms_user GROUP BY proId;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--查询proId，性别详情，注册时间详情，用户名详情 安装proId
+' at line 1
+mysql> 
+mysql> UPDATE cms_user SET age=11 WHERE id=1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=21 WHERE id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=33 WHERE id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=44 WHERE id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=25 WHERE id=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=77 WHERE id=6;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=56 WHERE id=7;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=88 WHERE id=8;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=12 WHERE id=9;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=32 WHERE id=10;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE cms_user SET age=65 WHERE id=11;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> --查询编号,sex,用户名详情以及组中总人数按照sex分组
+    -> 
+    -> SELECT id,sex,GROUP_CONCAT(username)AS users,COUNT(*) AS totalUsers FROM cms_user GROUP BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--查询编号,sex,用户名详情以及组中总人数按照sex分组
+
+SELECT i' at line 1
+mysql> 
+mysql> -- 统计表中所有记录
+mysql> 
+mysql> SELECT COUNT(*) AS totalUsers FROM cms_user;
++------------+
+| totalUsers |
++------------+
+|         12 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT COUNT(id) AS totalUsers FROM cms_user;
++------------+
+| totalUsers |
++------------+
+|         12 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> --COUNT(字段)不统计NULL值
+    -> SELECT COUNT(age) AS totalUsers FROM cms_user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--COUNT(字段)不统计NULL值
+SELECT COUNT(age) AS totalUsers FROM cms_user' at line 1
+mysql> 
+mysql> --查询编号,性别,用户名详情，组中总人数，组中最大年龄，最小年龄，
+    -> -- 平均年龄，以及年龄总和按照性别分组
+    -> 
+    -> SELECT id,sex,GROUP_CONCAT(username),
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age,
+    -> AVG(age) AS avg_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user
+    -> GROUP BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--查询编号,性别,用户名详情，组中总人数，组中最大年龄，' at line 1
+mysql> 
+mysql> -- WITH ROLLUP
+mysql> SELECT id,sex,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age
+    -> FROM cms_user
+    -> GROUP BY sex WITH ROLLUP;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> SELECT id,sex,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user
+    -> GROUP BY sex WITH ROLLUP;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> --查询性别sex,用户名详情,组中总人数，最大年龄，年龄总和,根据性别分组
+    -> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user 
+    -> GROUP BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--查询性别sex,用户名详情,组中总人数，最大年龄，年龄总和,' at line 1
+mysql> 
+mysql> -- 查询组中人数大于2的
+mysql> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user 
+    -> GROUP BY sex
+    -> HAVING COUNT(*)>2;
++------+---------------------------------+------------+---------+---------+
+| sex  | users                           | totalUsers | max_age | sum_age |
++------+---------------------------------+------------+---------+---------+
+| 男   | 张三,章子怡,ring,king,rose      |          5 |      56 |     137 |
+| 女   | 张三丰,long,queen,blek,lily     |          5 |      88 |     262 |
++------+---------------------------------+------------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询组中人数大于2并且最大年龄大于60的
+mysql> 
+mysql> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user 
+    -> GROUP BY sex
+    -> HAVING COUNT(*)>2 AND MAX(age)>60;
++------+--------------------------------+------------+---------+---------+
+| sex  | users                          | totalUsers | max_age | sum_age |
++------+--------------------------------+------------+---------+---------+
+| 女   | 张三丰,long,queen,blek,lily    |          5 |      88 |     262 |
++------+--------------------------------+------------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询编号大于等于2的用户
+mysql> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user 
+    -> WHERE id>=2
+    -> GROUP BY sex
+    -> HAVING COUNT(*)>2 AND MAX(age)>60;
++------+--------------------------------+------------+---------+---------+
+| sex  | users                          | totalUsers | max_age | sum_age |
++------+--------------------------------+------------+---------+---------+
+| 女   | 张三丰,long,queen,blek,lily    |          5 |      88 |     262 |
++------+--------------------------------+------------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> SELECT id,sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user 
+    -> WHERE id>=2
+    -> HAVING COUNT(*)>2 AND MAX(age)>60;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'cms.cms_user.id'; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> -- 按照id降序排列DESC 默认的是ASC
+mysql> SELECT * FROM cms_user ORDER BY id ;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   25 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user ORDER BY id ASC;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   25 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user ORDER BY id DESC;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   25 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 按照年龄升序排列
+mysql> SELECT * FROM cms_user ORDER BY age ASC;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   25 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user ORDER BY 1 DESC;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   25 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> UPDATE cms_user SET age=12 WHERE id=5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> -- 按照年龄升序，id降序排列
+mysql> 
+mysql> SELECT * FROM cms_user ORDER BY age ASC,id DESC;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT id,age,sex,GROUP_CONCAT(username),COUNT(*) AS totalUsers,SUM(age) AS sum_age 
+    -> FROM cms_user 
+    -> WHERE id>=2 
+    -> GROUP BY sex
+    -> HAVING COUNT(*)>=2
+    -> ORDER BY age DESC,id ASC;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> -- 实现记录随机
+mysql> SELECT * FROM cms_user ORDER BY RAND();
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.01 sec)
+
+mysql> 
+mysql> -- 查询表中前3条记录
+mysql> 
+mysql> SELECT * FROM cms_user LIMIT 3;
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男   |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user ORDER BY id DESC LIMIT 5;
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 11 | john     | john     | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 10 | lily     | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+|  9 | rose     | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  8 | blek     | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> -- 查询表中前一条记录
+mysql> SELECT * FROM cms_user LIMIT 1;
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  1 | 张三     | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user LIMIT 0,1;
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  1 | 张三     | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user LIMIT 1,1;
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user LIMIT 0,5;
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男   |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女   |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT id,sex,age,GROUP_CONCAT(username),
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age,
+    -> AVG(age) AS avg_age,
+    -> SUM(age) AS sum_age
+    -> FROM cms_user
+    -> WHERE id>=1
+    -> GROUP BY sex
+    -> HAVING COUNT(*)>=2
+    -> ORDER BY age DESC
+    -> LIMIT 0,2;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cms                |
+| csvt               |
+| hsc                |
+| jzopen_test        |
+| jzopen_v1          |
+| jzopen_v2          |
+| maizi1             |
+| maizi3             |
+| mysql              |
+| ocmf_v1            |
+| ocr_v2             |
+| opencmf_corethinkv |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
++--------------------+
+17 rows in set (0.00 sec)
+
+mysql> USE cms;
+Database changed
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_cms |
++---------------+
+| cms_admin     |
+| cms_cate      |
+| cms_news      |
+| cms_user      |
+| provinces     |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT cms_admin.* FROM cms_admin;
++----+----------+----------+--------------+-----------------+
+| id | username | password | email        | role            |
++----+----------+----------+--------------+-----------------+
+|  1 | admin    | admin    | admin@qq.com | 超级管理员      |
+|  2 | king     | king     | admin@qq.com | 普通管理员      |
+|  3 | 麦子     | maizi    | admin@qq.com | 普通管理员      |
+|  4 | queen    | queen    | admin@qq.com | 普通管理员      |
+|  5 | test     | test     | admin@qq.com | 普通管理员      |
++----+----------+----------+--------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT id,username FROM cms_admin;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> SEECT role,id,username FROM cmd_admin;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEECT role,id,username FROM cmd_admin' at line 1
+mysql> SEECT role,id,username FROM cms_admin;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SEECT role,id,username FROM cms_admin' at line 1
+mysql> SElECT role,id,username FROM cms_admin;
++-----------------+----+----------+
+| role            | id | username |
++-----------------+----+----------+
+| 超级管理员      |  1 | admin    |
+| 普通管理员      |  2 | king     |
+| 普通管理员      |  3 | 麦子     |
+| 普通管理员      |  4 | queen    |
+| 普通管理员      |  5 | test     |
++-----------------+----+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT cms_admin.id,cms_admin.username FROM cms.cms_admin;
++----+----------+
+| id | username |
++----+----------+
+|  1 | admin    |
+|  2 | king     |
+|  4 | queen    |
+|  5 | test     |
+|  3 | 麦子     |
++----+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT a.id,a.username,a.password FROM cms_admin AS a;
++----+----------+----------+
+| id | username | password |
++----+----------+----------+
+|  1 | admin    | admin    |
+|  2 | king     | king     |
+|  3 | 麦子     | maizi    |
+|  4 | queen    | queen    |
+|  5 | test     | test     |
++----+----------+----------+
+5 rows in set (0.01 sec)
+
+mysql>  SELECT id AS '编号',username AS '用户名' FROM cms_admin;
++--------+-----------+
+| 编号   | 用户名    |
++--------+-----------+
+|      1 | admin     |
+|      2 | king      |
+|      4 | queen     |
+|      5 | test      |
+|      3 | 麦子      |
++--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT id proid,proid id ,username name FROM cms_user;
++-------+----+-----------+
+| proid | id | name      |
++-------+----+-----------+
+|     1 |  1 | 张三      |
+|     2 |  2 | 张三丰    |
+|     3 |  3 | 章子怡    |
+|     4 |  4 | long      |
+|     5 |  2 | ring      |
+|     6 |  3 | queen     |
+|     7 |  5 | king      |
+|     8 |  1 | blek      |
+|     9 |  2 | rose      |
+|    10 |  2 | lily      |
+|    11 |  2 | john      |
+|    12 |  1 | test1     |
++-------+----+-----------+
+12 rows in set (0.00 sec)
+
+mysql>  SELECT 1,2,3,4,5,id,username FROM cms_user;
++---+---+---+---+---+----+-----------+
+| 1 | 2 | 3 | 4 | 5 | id | username  |
++---+---+---+---+---+----+-----------+
+| 1 | 2 | 3 | 4 | 5 |  8 | blek      |
+| 1 | 2 | 3 | 4 | 5 | 11 | john      |
+| 1 | 2 | 3 | 4 | 5 |  7 | king      |
+| 1 | 2 | 3 | 4 | 5 | 10 | lily      |
+| 1 | 2 | 3 | 4 | 5 |  4 | long      |
+| 1 | 2 | 3 | 4 | 5 |  6 | queen     |
+| 1 | 2 | 3 | 4 | 5 |  5 | ring      |
+| 1 | 2 | 3 | 4 | 5 |  9 | rose      |
+| 1 | 2 | 3 | 4 | 5 | 12 | test1     |
+| 1 | 2 | 3 | 4 | 5 |  1 | 张三      |
+| 1 | 2 | 3 | 4 | 5 |  2 | 张三丰    |
+| 1 | 2 | 3 | 4 | 5 |  3 | 章子怡    |
++---+---+---+---+---+----+-----------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE id = 1;
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  1 | 张三     | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT id,username FROM cms_user WHERE id = 1;
++----+----------+
+| id | username |
++----+----------+
+|  1 | 张三     |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT id,username,email,face FROM cms_user WHERE id = 1;
++----+----------+-------------+----------+
+| id | username | email       | face     |
++----+----------+-------------+----------+
+|  1 | 张三     | user@qq.com | user.jpg |
++----+----------+-------------+----------+
+1 row in set (0.01 sec)
+
+mysql> SELECT id,username,email,face FROM cms_user WHERE id = 11;
++----+----------+-------------+----------+
+| id | username | email       | face     |
++----+----------+-------------+----------+
+| 11 | john     | user@qq.com | user.jpg |
++----+----------+-------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT id,username,email,face FROM cms_user WHERE id = 110;
+Empty set (0.00 sec)
+
+mysql> SELECT id,username,email FROM cms_user WHERE username = john;
+ERROR 1054 (42S22): Unknown column 'john' in 'where clause'
+mysql> SELECT id,username,email FROM cms_user WHERE username = 'john';
++----+----------+-------------+
+| id | username | email       |
++----+----------+-------------+
+| 11 | john     | user@qq.com |
++----+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT id,username,email FROM cms_user WHERE id>=5;
++----+----------+-------------+
+| id | username | email       |
++----+----------+-------------+
+|  5 | ring     | user@qq.com |
+|  6 | queen    | user@qq.com |
+|  7 | king     | user@qq.com |
+|  8 | blek     | user@qq.com |
+|  9 | rose     | user@qq.com |
+| 10 | lily     | user@qq.com |
+| 11 | john     | user@qq.com |
+| 12 | test1    | user@qq.com |
++----+----------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT id,username,email FROM cms_user WHERE id!=5;
++----+-----------+-------------+
+| id | username  | email       |
++----+-----------+-------------+
+|  1 | 张三      | user@qq.com |
+|  2 | 张三丰    | user@qq.com |
+|  3 | 章子怡    | user@qq.com |
+|  4 | long      | user@qq.com |
+|  6 | queen     | user@qq.com |
+|  7 | king      | user@qq.com |
+|  8 | blek      | user@qq.com |
+|  9 | rose      | user@qq.com |
+| 10 | lily      | user@qq.com |
+| 11 | john      | user@qq.com |
+| 12 | test1     | user@qq.com |
++----+-----------+-------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT id,username,email FROM cms_user WHERE id<=5;
++----+-----------+-------------+
+| id | username  | email       |
++----+-----------+-------------+
+|  1 | 张三      | user@qq.com |
+|  2 | 张三丰    | user@qq.com |
+|  3 | 章子怡    | user@qq.com |
+|  4 | long      | user@qq.com |
+|  5 | ring      | user@qq.com |
++----+-----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE cms_user ADD age TINYINT UNSIGNED DEFAULT 18;
+ERROR 1060 (42S21): Duplicate column name 'age'
+mysql> ALTER TABLE cms_user ADD dieage TINYINT UNSIGNED DEFAULT 18;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM cms_user;;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    | dieage |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |     18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |     18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |     18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |     18 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |     18 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |     18 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |     18 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |     18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |     18 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |     18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |     18 |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |     18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+12 rows in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> DELETE dieage FROM cms_user;
+ERROR 1109 (42S02): Unknown table 'dieage' in MULTI DELETE
+mysql> DROP dieage FROM cms_user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dieage FROM cms_user' at line 1
+mysql> DROP dieage;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dieage' at line 1
+mysql> DROP dieage;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dieage' at line 1
+mysql> SELECT * FROM cms_user;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    | dieage |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |     18 |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |     18 |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |     18 |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |     18 |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |     18 |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |     18 |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |     18 |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |     18 |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |     18 |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |     18 |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |     18 |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |     18 |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+--------+
+12 rows in set (0.00 sec)
+
+mysql> DROP dieage FROM cms_user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dieage FROM cms_user' at line 1
+mysql> ALTER TABLE cms_user DROP dieage;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT cms(username,password,regTime,proid,age) VALUES('jz1','jz1','14000000',1,NULL);
+ERROR 1146 (42S02): Table 'cms.cms' doesn't exist
+mysql> INSERT cms_user(username,password,regTime,proid,age) VALUES('jz1','jz1','14000000',1,NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM cms_user;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE age=NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE age<=>NULL;
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1      | jz1      | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM cms_user WHERE age IS NULL;
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1      | jz1      | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE age IS NOT NULL;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+11 rows in set (0.00 sec)
+
+mysql> BETWEEN AND NOT BETWEEN AND
+    -> SELECT *FROM cms_user WHERE id BETWEEN 2 AND 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN AND NOT BETWEEN AND
+SELECT *FROM cms_user WHERE id BETWEEN 2 AND 10' at line 1
+mysql> SELECT *FROM cms_user WHERE id BETWEEN 2 AND 10;
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男   |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女   |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女   |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女   |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男   |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女   |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT *FROM cms_user WHERE id NOT BETWEEN 2 AND 10;
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三     | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+| 11 | john     | john     | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1      | jz1      | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE id IN(1,3,5,7,9,11);
++----+-----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username  | password | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+----------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  3 | 章子怡    | zhangsan | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  5 | ring      | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  7 | king      | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  9 | rose      | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 11 | john      | john     | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
++----+-----------+----------+-------------+------------+----------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE id NOT IN(1,3,5,7,9,11);
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username in('king','queen','张三');
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  1 | 张三     | zhangsan | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
+|  6 | queen    | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username LIKE '%张%';
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男   |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username LIKE '%in%';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM cms_user WHERE username LIKE '___';
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex  |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女   |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL |
++----+-----------+--------------+-------------+------------+----------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM cms_user WHERE username LIKE '____';
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+|  4 | long     | long     | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek     | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose     | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily     | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john     | john     | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM cms_user WHERE username LIKE '_i%';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
+| 10 | lily     | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username = 'king' AND password = 'king';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE id>=3 AND age IS NULL;
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1      | jz1      | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user GROUP BY proid;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM cms_user GROUP BY proId;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM cms_user GROUP_BY proId;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'proId' at line 1
+mysql> SELECT * FROM cms_user GROUP BY proId;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_cms |
++---------------+
+| cms_admin     |
+| cms_cate      |
+| cms_news      |
+| cms_user      |
+| provinces     |
++---------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM cms_user GROUP BY proId;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM cms_user;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+13 rows in set (0.00 sec)
+
+mysql> help DELETE
+Name: 'DELETE'
+Description:
+Syntax:
+DELETE is a DML statement that removes rows from a table.
+
+Single-Table Syntax
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE] FROM tbl_name
+    [PARTITION (partition_name,...)]
+    [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
+
+The DELETE statement deletes rows from tbl_name and returns the number
+of deleted rows. To check the number of deleted rows, call the
+ROW_COUNT() function described in
+http://dev.mysql.com/doc/refman/5.7/en/information-functions.html.
+
+Main Clauses
+
+The conditions in the optional WHERE clause identify which rows to
+delete. With no WHERE clause, all rows are deleted.
+
+where_condition is an expression that evaluates to true for each row to
+be deleted. It is specified as described in
+http://dev.mysql.com/doc/refman/5.7/en/select.html.
+
+If the ORDER BY clause is specified, the rows are deleted in the order
+that is specified. The LIMIT clause places a limit on the number of
+rows that can be deleted. These clauses apply to single-table deletes,
+but not multi-table deletes.
+
+Multiple-Table Syntax
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+    tbl_name[.*] [, tbl_name[.*]] ...
+    FROM table_references
+    [WHERE where_condition]
+
+Or:
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+    FROM tbl_name[.*] [, tbl_name[.*]] ...
+    USING table_references
+    [WHERE where_condition]
+
+Privileges
+
+You need the DELETE privilege on a table to delete rows from it. You
+need only the SELECT privilege for any columns that are only read, such
+as those named in the WHERE clause.
+
+Performance
+
+When you do not need to know the number of deleted rows, the TRUNCATE
+TABLE statement is a faster way to empty a table than a DELETE
+statement with no WHERE clause. Unlike DELETE, TRUNCATE TABLE cannot be
+used within a transaction or if you have a lock on the table. See [HELP
+TRUNCATE TABLE] and [HELP LOCK].
+
+The speed of delete operations may also be affected by factors
+discussed in http://dev.mysql.com/doc/refman/5.7/en/delete-speed.html.
+
+To ensure that a given DELETE statement does not take too much time,
+the MySQL-specific LIMIT row_count clause for DELETE specifies the
+maximum number of rows to be deleted. If the number of rows to delete
+is larger than the limit, repeat the DELETE statement until the number
+of affected rows is less than the LIMIT value.
+
+Subqueries
+
+Currently, you cannot delete from a table and select from the same
+table in a subquery.
+
+Partitioned Tables
+
+DELETE supports explicit partition selection using the PARTITION
+option, which takes a comma-separated list of the names of one or more
+partitions or subpartitions (or both) from which to select rows to be
+dropped. Partitions not included in the list are ignored. Given a
+partitioned table t with a partition named p0, executing the statement
+DELETE FROM t PARTITION (p0) has the same effect on the table as
+executing ALTER TABLE t TRUNCATE PARTITION (p0); in both cases, all
+rows in partition p0 are dropped.
+
+PARTITION can be used along with a WHERE condition, in which case the
+condition is tested only on rows in the listed partitions. For example,
+DELETE FROM t PARTITION (p0) WHERE c < 5 deletes rows only from
+partition p0 for which the condition c < 5 is true; rows in any other
+partitions are not checked and thus not affected by the DELETE.
+
+The PARTITION option can also be used in multiple-table DELETE
+statements. You can use up to one such option per table named in the
+FROM option.
+
+See http://dev.mysql.com/doc/refman/5.7/en/partitioning-selection.html,
+for more information and examples.
+
+URL: http://dev.mysql.com/doc/refman/5.7/en/delete.html
+
+
+mysql> SELECT * FROM cms_user GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM cms.cms_user GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT * FROM cms.cms_user GROUPBY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sex' at line 1
+mysql> SELECT * FROM cms.cms_user BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BY sex' at line 1
+mysql> SELECT * FROM cms.cms_user ORDER BY sex;
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE id>=5 GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> n 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'n 'cms.cms_user.id' which is not functionally dependent on columns in GROUP BY c' at line 1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'this is incompatible with sql_mode=only_full_group_by' at line 1
+mysql> SELECT COUNT(*) AS totalUsers FROM cms_user;
++------------+
+| totalUsers |
++------------+
+|         13 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(age) AS totalUsers FROM cms_user;
++------------+
+| totalUsers |
++------------+
+|         11 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age,
+    -> AVG(age) AS avg_age,
+    -> SUM(age) AS sum_age,
+    -> FROM cms_user,
+    -> GROUP BY sex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM cms_user,
+GROUP BY sex' at line 7
+mysql> SELECT sex,GROUP_CONCAT(username) AS users,
+    -> COUNT(*) AS totalUsers,
+    -> MAX(age) AS max_age,
+    -> MIN(age) AS min_age,
+    -> AVG(age) AS avg_age,
+    -> SUM(age) AS sum_age,
+    -> FROM cms_user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM cms_user' at line 7
+mysql> SELECT * FROM cms_user WHERE username REGEXP '^t';
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP 'g$';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  4 | long     | long     | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女   |
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> SELECT * FROM cms_user WHERE username REGEXP '.';
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+13 rows in set (0.00 sec)
+
+mysql> ELECT * FROM cms_user WHERE username REGEXP 'r..g';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ELECT * FROM cms_user WHERE username REGEXP 'r..g'' at line 1
+mysql> SELECT * FROM cms_user WHERE username LIKE 'r..g';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP 'r..e';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  9 | rose     | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP '[lto]';
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex    |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+|  4 | long     | long     | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  8 | blek     | blek     | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose     | rose     | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily     | lily     | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john     | john     | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1    | test1    | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
++----+----------+----------+-------------+------------+----------+-------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP '[^lto]';
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+| id | username  | password     | email       | regTime    | face     | proId | age  | sex    |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+|  1 | 张三      | zhangsan     | user@qq.com | 1419811708 | user.jpg |     1 |   11 | 男     |
+|  2 | 张三丰    | zhangsanfeng | user@qq.com | 1419812708 | user.jpg |     2 |   21 | 女     |
+|  3 | 章子怡    | zhangsan     | user@qq.com | 1419813708 | user.jpg |     3 |   33 | 男     |
+|  4 | long      | long         | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女     |
+|  5 | ring      | ring         | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男     |
+|  6 | queen     | queen        | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女     |
+|  7 | king      | king         | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男     |
+|  8 | blek      | blek         | user@qq.com | 1419818708 | user.jpg |     1 |   88 | 女     |
+|  9 | rose      | rose         | user@qq.com | 1419821708 | user.jpg |     2 |   12 | 男     |
+| 10 | lily      | lily         | user@qq.com | 1419831708 | user.jpg |     2 |   32 | 女     |
+| 11 | john      | john         | user@qq.com | 1419841708 | user.jpg |     2 |   65 | 保密   |
+| 12 | test1     | test1        | user@qq.com | 1419811708 | user.jpg |     1 | NULL | 保密   |
+| 13 | jz1       | jz1          | user@qq.com |   14000000 | user.jpg |     1 | NULL | NULL   |
++----+-----------+--------------+-------------+------------+----------+-------+------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  4 | long     | long     | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女   |
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  6 | queen    | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
++----+----------+----------+-------------+------------+----------+-------+------+------+
+| id | username | password | email       | regTime    | face     | proId | age  | sex  |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+|  4 | long     | long     | user@qq.com | 1419814708 | user.jpg |     4 |   44 | 女   |
+|  5 | ring     | ring     | user@qq.com | 1419815708 | user.jpg |     2 |   12 | 男   |
+|  6 | queen    | queen    | user@qq.com | 1419861708 | user.jpg |     3 |   77 | 女   |
+|  7 | king     | king     | user@qq.com | 1419817708 | user.jpg |     5 |   56 | 男   |
++----+----------+----------+-------------+------------+----------+-------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT 1+1,1-3,4*3;
++-----+-----+-----+
+| 1+1 | 1-3 | 4*3 |
++-----+-----+-----+
+|   2 |  -2 |  12 |
++-----+-----+-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT 3 / 0;
++-------+
+| 3 / 0 |
++-------+
+|  NULL |
++-------+
+1 row in set, 1 warning (0.01 sec)
+
+mysql> SELECT 3DIV0;
+ERROR 1054 (42S22): Unknown column '3DIV0' in 'field list'
+mysql> SELECT 3 DIV 2;
++---------+
+| 3 DIV 2 |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT 1=0;
++-----+
+| 1=0 |
++-----+
+|   0 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT 1=1;
++-----+
+| 1=1 |
++-----+
+|   1 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> SELECT 1='1';
++-------+
+| 1='1' |
++-------+
+|     1 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT id,username,username REGEXP '^t' FROM cms_user;
++----+-----------+----------------------+
+| id | username  | username REGEXP '^t' |
++----+-----------+----------------------+
+|  8 | blek      |                    0 |
+| 11 | john      |                    0 |
+| 13 | jz1       |                    0 |
+|  7 | king      |                    0 |
+| 10 | lily      |                    0 |
+|  4 | long      |                    0 |
+|  6 | queen     |                    0 |
+|  5 | ring      |                    0 |
+|  9 | rose      |                    0 |
+| 12 | test1     |                    1 |
+|  1 | 张三      |                    0 |
+|  2 | 张三丰    |                    0 |
+|  3 | 章子怡    |                    0 |
++----+-----------+----------------------+
+13 rows in set (0.00 sec)
+
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| test12           |
+| testuser         |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user12           |
+| user13           |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| user6            |
+| user8            |
+| user9            |
+| yeartest         |
++------------------+
+24 rows in set (0.00 sec)
+
+mysql> SELECT * FROM user12;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM user13;
++----+----------+----------+-------+-----+
+| id | username | password | email | age |
++----+----------+----------+-------+-----+
+|  1 | A        | B        | C     |  10 |
+|  4 | A        | B        | C1    |  10 |
+|  5 | g        | s        | d     |   1 |
++----+----------+----------+-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> INSERT user13 VALUES(6,'A','C','S','3.12');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT MD5('jankz');
++----------------------------------+
+| MD5('jankz')                     |
++----------------------------------+
+| da16cf8e1733315ceb6cc628c4db3fdd |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> USE mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM user;
++-----------+-----------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| Host      | User      | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string                     | password_expired | password_last_changed | password_lifetime | account_locked |
++-----------+-----------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+| localhost | root      | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | Y          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          |            |             |              |             0 |           0 |               0 |                    0 | mysql_native_password | *3AE55845E6A57A795B80EEED2D24F40E0947F7F3 | N                | 2015-12-01 13:09:35   |              NULL | N              |
+| localhost | mysql.sys | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             0 |           0 |               0 |                    0 | mysql_native_password | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | N                | 2015-12-01 12:56:55   |              NULL | Y              |
+| localhost | jztest    | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |            |             |              |             0 |           0 |               0 |                    0 | mysql_native_password | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 | N                | 2016-04-16 05:15:47   |              NULL | N              |
++-----------+-----------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-------------------------------------------+------------------+-----------------------+-------------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM user\G
+*************************** 1. row ***************************
+                  Host: localhost
+                  User: root
+           Select_priv: Y
+           Insert_priv: Y
+           Update_priv: Y
+           Delete_priv: Y
+           Create_priv: Y
+             Drop_priv: Y
+           Reload_priv: Y
+         Shutdown_priv: Y
+          Process_priv: Y
+             File_priv: Y
+            Grant_priv: Y
+       References_priv: Y
+            Index_priv: Y
+            Alter_priv: Y
+          Show_db_priv: Y
+            Super_priv: Y
+ Create_tmp_table_priv: Y
+      Lock_tables_priv: Y
+          Execute_priv: Y
+       Repl_slave_priv: Y
+      Repl_client_priv: Y
+      Create_view_priv: Y
+        Show_view_priv: Y
+   Create_routine_priv: Y
+    Alter_routine_priv: Y
+      Create_user_priv: Y
+            Event_priv: Y
+          Trigger_priv: Y
+Create_tablespace_priv: Y
+              ssl_type: 
+            ssl_cipher: 
+           x509_issuer: 
+          x509_subject: 
+         max_questions: 0
+           max_updates: 0
+       max_connections: 0
+  max_user_connections: 0
+                plugin: mysql_native_password
+ authentication_string: *3AE55845E6A57A795B80EEED2D24F40E0947F7F3
+      password_expired: N
+ password_last_changed: 2015-12-01 13:09:35
+     password_lifetime: NULL
+        account_locked: N
+*************************** 2. row ***************************
+                  Host: localhost
+                  User: mysql.sys
+           Select_priv: N
+           Insert_priv: N
+           Update_priv: N
+           Delete_priv: N
+           Create_priv: N
+             Drop_priv: N
+           Reload_priv: N
+         Shutdown_priv: N
+          Process_priv: N
+             File_priv: N
+            Grant_priv: N
+       References_priv: N
+            Index_priv: N
+            Alter_priv: N
+          Show_db_priv: N
+            Super_priv: N
+ Create_tmp_table_priv: N
+      Lock_tables_priv: N
+          Execute_priv: N
+       Repl_slave_priv: N
+      Repl_client_priv: N
+      Create_view_priv: N
+        Show_view_priv: N
+   Create_routine_priv: N
+    Alter_routine_priv: N
+      Create_user_priv: N
+            Event_priv: N
+          Trigger_priv: N
+Create_tablespace_priv: N
+              ssl_type: 
+            ssl_cipher: 
+           x509_issuer: 
+          x509_subject: 
+         max_questions: 0
+           max_updates: 0
+       max_connections: 0
+  max_user_connections: 0
+                plugin: mysql_native_password
+ authentication_string: *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE
+      password_expired: N
+ password_last_changed: 2015-12-01 12:56:55
+     password_lifetime: NULL
+        account_locked: Y
+*************************** 3. row ***************************
+                  Host: localhost
+                  User: jztest
+           Select_priv: N
+           Insert_priv: N
+           Update_priv: N
+           Delete_priv: N
+           Create_priv: N
+             Drop_priv: N
+           Reload_priv: N
+         Shutdown_priv: N
+          Process_priv: N
+             File_priv: N
+            Grant_priv: N
+       References_priv: N
+            Index_priv: N
+            Alter_priv: N
+          Show_db_priv: N
+            Super_priv: N
+ Create_tmp_table_priv: N
+      Lock_tables_priv: N
+          Execute_priv: N
+       Repl_slave_priv: N
+      Repl_client_priv: N
+      Create_view_priv: N
+        Show_view_priv: N
+   Create_routine_priv: N
+    Alter_routine_priv: N
+      Create_user_priv: N
+            Event_priv: N
+          Trigger_priv: N
+Create_tablespace_priv: N
+              ssl_type: 
+            ssl_cipher: 
+           x509_issuer: 
+          x509_subject: 
+         max_questions: 0
+           max_updates: 0
+       max_connections: 0
+  max_user_connections: 0
+                plugin: mysql_native_password
+ authentication_string: *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
+      password_expired: N
+ password_last_changed: 2016-04-16 05:15:47
+     password_lifetime: NULL
+        account_locked: N
+3 rows in set (0.00 sec)
+
+mysql> SELECT ASCII('ja');
++-------------+
+| ASCII('ja') |
++-------------+
+|         106 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ASCII('a');
++------------+
+| ASCII('a') |
++------------+
+|         97 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ASCII('A');
++------------+
+| ASCII('A') |
++------------+
+|         65 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE testindex(
+    -> id TINYINT UNSIGNED,
+    -> username VARCHAR(20),
+    -> INDEX in_id(id),
+    -> KEY in_username(username)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| db                        |
+| engine_cost               |
+| event                     |
+| func                      |
+| general_log               |
+| gtid_executed             |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| innodb_index_stats        |
+| innodb_table_stats        |
+| ndb_binlog_index          |
+| plugin                    |
+| proc                      |
+| procs_priv                |
+| proxies_priv              |
+| server_cost               |
+| servers                   |
+| slave_master_info         |
+| slave_relay_log_info      |
+| slave_worker_info         |
+| slow_log                  |
+| tables_priv               |
+| testindex                 |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+32 rows in set (0.00 sec)
+
+mysql> DROP testindex;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'testindex' at line 1
+mysql> DROP TABLE testindex;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> USEmaizi1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'USEmaizi1' at line 1
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE testindex(
+    -> id TINYINT UNSIGNED,
+    -> username VARCHAR(20),
+    -> INDEX in_id(id),
+    -> KEY in_username(username)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW CREATE TABLE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW CREATE TABLE testindex;
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                             |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| testindex | CREATE TABLE `testindex` (
+  `id` tinyint(3) unsigned DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  KEY `in_id` (`id`),
+  KEY `in_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> CREATE TABLE testindex2(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> card CHAR(18) NOT NULL,
+    -> UNIQUE KEY uni_card(card)
+    -> );
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> CREATE TABLE testindex2(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> card CHAR(18) NOT NULL,
+    -> UNIQUE KEY uni_card(card)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> CREATE TABLE testindex3(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> userDesc CHAR(18) NOT NULL,
+    -> FULLTEXT INDEX full_userDesc(userDesc)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW CREATE TABLE testindex3;
++------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table      | Create Table                                                                                                                                                                                                                                                                                      |
++------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| testindex3 | CREATE TABLE `testindex3` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `userDesc` char(18) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  FULLTEXT KEY `full_userDesc` (`userDesc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE testindex4(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> test1 VARCHAR(20) NOT NULL,
+    -> test2 VARCHAR(20) NOT NULL,
+    -> test3 VARCHAR(20) NOT NULL,
+    -> test4 VARCHAR(20) NOT NULL,
+    -> test5 VARCHAR(20) NOT NULL,
+    -> test6 VARCHAR(20) NOT NULL,
+    -> INDEX in_test1(test1)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE testindex4(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> test1 VARCHAR(20) NOT NULL,
+    -> test2 VARCHAR(20) NOT NULL,
+    -> test3 VARCHAR(20) NOT NULL,
+    -> test4 VARCHAR(20) NOT NULL,
+    -> test5 VARCHAR(20) NOT NULL,
+    -> test6 VARCHAR(20) NOT NULL,
+    -> INDEX mul_t1_t2_t3(test1,test2,test3)
+    -> );
+ERROR 1050 (42S01): Table 'testindex4' already exists
+mysql> CREATE TABLE testindex5(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> test1 VARCHAR(20) NOT NULL,
+    -> test2 VARCHAR(20) NOT NULL,
+    -> test3 VARCHAR(20) NOT NULL,
+    -> test4 VARCHAR(20) NOT NULL,
+    -> test5 VARCHAR(20) NOT NULL,
+    -> test6 VARCHAR(20) NOT NULL,
+    -> INDEX mul_t1_t2_t3(test1,test2,test3)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE testindex6(
+    -> id TINYINT UNSIGNED AUTO_INCREMENT KEY,
+    -> test GEOMETRY NOT NULL,
+    -> SPATIAL INDEX spa_test(test)
+    -> )ENGINE=MyISAM;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESC testindex6;
++-------+---------------------+------+-----+---------+----------------+
+| Field | Type                | Null | Key | Default | Extra          |
++-------+---------------------+------+-----+---------+----------------+
+| id    | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| test  | geometry            | NO   | MUL | NULL    |                |
++-------+---------------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> \t

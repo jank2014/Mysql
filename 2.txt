@@ -1,0 +1,925 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| csvt               |
+| hsc                |
+| jzopen_test        |
+| jzopen_v1          |
+| jzopen_v2          |
+| maizi1             |
+| maizi3             |
+| mysql              |
+| ocmf_v1            |
+| ocr_v2             |
+| opencmf_corethinkv |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> USE maizi1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| untest           |
++------------------+
+10 rows in set (0.00 sec)
+
+mysql>  CREATE TABLE yeartest(
+    -> birth YEAR);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT yeartest VALUES(2018);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT yeartest VALUES(2155);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT yeartest VALUES(2156);
+ERROR 1264 (22003): Out of range value for column 'birth' at row 1
+mysql> INSERT yeartest VALUES('1988');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM yeartest;
++-------+
+| birth |
++-------+
+|  2018 |
+|  2155 |
+|  1988 |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT yeartest VALUES(12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM yeartest;
++-------+
+| birth |
++-------+
+|  2018 |
+|  2155 |
+|  1988 |
+|  2012 |
++-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT yeartest VALUES(79);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM yeartest;
++-------+
+| birth |
++-------+
+|  2018 |
+|  2155 |
+|  1988 |
+|  2012 |
+|  1979 |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT yeartest VALUES(0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT yeartest VALUES('0');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM yeartest;
++-------+
+| birth |
++-------+
+|  2018 |
+|  2155 |
+|  1988 |
+|  2012 |
+|  1979 |
+|  0000 |
+|  2000 |
++-------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT yeartest VALUES(69);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT yeartest VALUES(70);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM yeartest;
++-------+
+| birth |
++-------+
+|  2018 |
+|  2155 |
+|  1988 |
+|  2012 |
+|  1979 |
+|  0000 |
+|  2000 |
+|  2069 |
+|  1970 |
++-------+
+9 rows in set (0.00 sec)
+
+mysql>  CREATE TABLE timetest(
+    -> test TIME);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT timetest VALUES('1 12:12:12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM timetest;
++----------+
+| test     |
++----------+
+| 36:12:12 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT timetest VALUES('12:12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM timetest;
++----------+
+| test     |
++----------+
+| 36:12:12 |
+| 12:12:00 |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT timetest VALUES('12:12:12');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM timetest;
++----------+
+| test     |
++----------+
+| 36:12:12 |
+| 12:12:00 |
+| 12:12:12 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT timetest VALUES('1234');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM timetest;
++----------+
+| test     |
++----------+
+| 36:12:12 |
+| 12:12:00 |
+| 12:12:12 |
+| 00:12:34 |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT timetest VALUES('12');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM timetest;
++----------+
+| test     |
++----------+
+| 36:12:12 |
+| 12:12:00 |
+| 12:12:12 |
+| 00:12:34 |
+| 00:00:12 |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT timetest VALUES('0');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT timetest VALUES(66);
+ERROR 1292 (22007): Incorrect time value: '66' for column 'test' at row 1
+mysql> CREATE TABLES user1(
+    -> id INT PRIMARY KEY,
+    -> username VARCHAR(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLES user1(
+id INT PRIMARY KEY,
+username VARCHAR(20)
+)' at line 1
+mysql> CREATE TABLES user1(id INT PRIMARY KEY, username VARCHAR(20) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLES user1(id INT PRIMARY KEY, username VARCHAR(20) )' at line 1
+mysql> CREATE TABLE user1( id INT PRIMARY KEY, username VARCHAR(20) );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESC user1;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int(11)     | NO   | PRI | NULL    |       |
+| username | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> SHOW CREATE user1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user1' at line 1
+mysql> SHOW CREATE TABLE user1;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                       |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+| user1 | CREATE TABLE `user1` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT user1 VALUES('JZNKA');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user1 VALUES('1','JZNKA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT user1 VALUES('10','JZNKAS');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user1;
++----+----------+
+| id | username |
++----+----------+
+|  1 | JZNKA    |
+| 10 | JZNKAS   |
++----+----------+
+2 rows in set (0.00 sec)
+
+mysql>  CREATE TABLE IF NOT EXISTS user2(
+    -> id INT,
+    -> usernae VARCHAR(20),
+    -> card char(18),
+    -> PRIMARY KEY(id,card)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DESC user2;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int(11)     | NO   | PRI | NULL    |       |
+| usernae | varchar(20) | YES  |     | NULL    |       |
+| card    | char(18)    | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT user2 VALUES('1','TOM','111';)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> INSERT user2 VALUES('1','TOM','111');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT user2 VALUES('1','TOM','112');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user2;
++----+---------+------+
+| id | usernae | card |
++----+---------+------+
+|  1 | TOM     | 111  |
+|  1 | TOM     | 112  |
++----+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user3(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC user3;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> INSERT user3 VALUES('jankz')
+    -> ;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user3 VALUES('jankz');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user3 VALUES(1,'jankz');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user3;
++----+----------+
+| id | username |
++----+----------+
+|  1 | jankz    |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql> DESC user3;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT user3 VALUES('jankoz');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user3(username) VALUES('jankoz'); 
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT user3(username) VALUES('jankoz0');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT user3(username) VALUES('jankozkj');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user3;
++----+----------+
+| id | username |
++----+----------+
+|  1 | jankz    |
+|  2 | jankoz   |
+|  3 | jankoz0  |
+|  4 | jankozkj |
++----+----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT user3(id,username) VALUES(111,'jankoz');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user3;
++-----+----------+
+| id  | username |
++-----+----------+
+|   1 | jankz    |
+|   2 | jankoz   |
+|   3 | jankoz0  |
+|   4 | jankozkj |
+| 111 | jankoz   |
++-----+----------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT user3(username) VALUES('jank');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user3;
++-----+----------+
+| id  | username |
++-----+----------+
+|   1 | jankz    |
+|   2 | jankoz   |
+|   3 | jankoz0  |
+|   4 | jankozkj |
+| 111 | jankoz   |
+| 112 | jank     |
++-----+----------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user4(
+    -> id INT PRIMARY KEY,
+    -> username VARCHAR(20)
+    -> )AUTO_INCREMENT = 100;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT user4(username) VALUES('jank');
+ERROR 1364 (HY000): Field 'id' doesn't have a default value
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| yeartest         |
++------------------+
+16 rows in set (0.00 sec)
+
+mysql> DROP TABLE user4;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user4(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20)
+    -> )AUTO_INCREMENT = 100;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT user4(username) VALUES('jank');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user4;
++-----+----------+
+| id  | username |
++-----+----------+
+| 100 | jank     |
++-----+----------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE user4 AUTO_INCREMEMT = 500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTO_INCREMEMT = 500' at line 1
+mysql> ALTER TABLE user4 SET AUTO_INCREMEMT = 500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SET AUTO_INCREMEMT = 500' at line 1
+mysql> ALTER TABLE user4 AUTO_INCREMEMT = 500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AUTO_INCREMEMT = 500' at line 1
+mysql> SHOW CREATE TABLE user4;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                         |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user4 | CREATE TABLE `user4` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1 |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE user4 AUTO_INCREMENT = 200;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE user4;
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                         |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user4 | CREATE TABLE `user4` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=latin1 |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT user4 VALUES('HHK');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user4(username) VALUES('HHK');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user4;
++-----+----------+
+| id  | username |
++-----+----------+
+| 100 | jank     |
+| 200 | HHK      |
++-----+----------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSINGED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSINGED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSINGED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSINGED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSIGNED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSIGNED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSIGNED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSIGNED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSIGNED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSIGNED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSIGNED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSIGNED
+)' at line 5
+mysql> CLS
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CLS' at line 1
+mysql> clear
+mysql> cls
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cls' at line 1
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age INTYINT UNSIGNED
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INTYINT UNSIGNED
+)' at line 5
+mysql> CREATE TABLE IF NOT EXISTS user5(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT UNSIGNED
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DESC user5;
++----------+---------------------+------+-----+---------+----------------+
+| Field    | Type                | Null | Key | Default | Extra          |
++----------+---------------------+------+-----+---------+----------------+
+| id       | int(11)             | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)         | NO   |     | NULL    |                |
+| password | char(32)            | NO   |     | NULL    |                |
+| age      | tinyint(3) unsigned | YES  |     | NULL    |                |
++----------+---------------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT user5(username,password) VALUES('kng','king');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM user5;
++----+----------+----------+------+
+| id | username | password | age  |
++----+----------+----------+------+
+|  1 | kng      | king     | NULL |
++----+----------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT user5(username,password,age) VALUES('kaka','luluse',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM user5;
++----+----------+----------+------+
+| id | username | password | age  |
++----+----------+----------+------+
+|  1 | kng      | king     | NULL |
+|  2 | kaka     | luluse   |   20 |
++----+----------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql>  CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOTT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT '男'
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOTT NULL,
+password CHAR(32) NOT NULL,
+age TINYINT,
+addr VARCHAR(30) NOT NULL DE' at line 3
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT '男'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'sex'
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT '男'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'sex'
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT '男'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'sex'
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'addr'
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PARIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password VARCHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) DEFAULT '北京',
+    -> sex ENUM('男','女','保密') DEFAULT '保密'
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PARIMARY KEY AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL,
+password VARCHAR(32)' at line 2
+mysql> );id INT PRIMARY KEY AUTO_INCREMENT,
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id INT PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL,
+password CHAR(' at line 1
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_maizi1 |
++------------------+
+| chartest         |
+| cms_cate         |
+| cms_news         |
+| enutest1         |
+| ftest            |
+| intest           |
+| intest1          |
+| settest          |
+| texttest         |
+| timetest         |
+| untest           |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
+| user5            |
+| yeartest         |
++------------------+
+17 rows in set (0.01 sec)
+
+mysql> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id INT PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL,
+password CHAR(' at line 1
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT '北京',
+    -> sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+    -> );
+ERROR 1067 (42000): Invalid default value for 'addr'
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT 北京,
+    -> sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '北京,
+sex ENUM('1','0','2') NOT NULL DEFAULT '1'
+)' at line 6
+mysql> 
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT 北京,
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT 保密
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '北京,
+sex ENUM('男','女','保密') NOT NULL DEFAULT 保密
+)' at line 6
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL,
+    -> password CHAR(32) NOT NULL,
+    -> age TINYINT,
+    -> addr VARCHAR(30) NOT NULL DEFAULT `北京`,
+    -> sex ENUM('男','女','保密') NOT NULL DEFAULT `保密`
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`北京`,
+sex ENUM('男','女','保密') NOT NULL DEFAULT `保密`
+)' at line 6
+mysql> CREATE TABLE IF NOT EXISTS user6(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL DEFAULT 'jankz'
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT user6(id) VALUES(1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM user6;
++----+----------+
+| id | username |
++----+----------+
+|  1 | jankz    |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS user7(
+    -> id INT PRIMARY KEY UNSINGED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSINGED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password CHAR(32)' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password CHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password CHAR(32)' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL UNIQUE,
+password VARCHAR(' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT)' at line 2
+mysql> CREATE TABLE IF NOT EXISTS user8( id INT UNSIGNED AUTO_INCREMENT);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> CREATE TABLE IF NOT EXISTS user8( id INT PRIMARY KEY UNSIGNED AUTO_INCREMENT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNSIGNED AUTO_INCREMENT)' at line 1
+mysql> CREATE TABLE IF NOT EXISTS user8(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> username VARCHAR(20) NOT NULL UNIQUE,
+    -> password VARCHAR(32) NOT NULL UNIQUE,
+    -> card VARCHAR(30) UNIQUE
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC user8;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20) | NO   | UNI | NULL    |                |
+| password | varchar(32) | NO   | UNI | NULL    |                |
+| card     | varchar(30) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> SHOW CREATE TABLE user8;
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                  |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| user8 | CREATE TABLE `user8` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `card` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `password` (`password`),
+  UNIQUE KEY `card` (`card`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT user8(username,password,card) VALUES('AA','BB','123');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT user8(username,password,card) VALUES('AA','BB','123');
+ERROR 1062 (23000): Duplicate entry 'AA' for key 'username'
+mysql> );INSERT user8(username,password,card) VALUES('AA1','BB','123');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ERROR 1062 (23000): Duplicate entry 'BB' for key 'password'
+mysql> ) INSERT user8(username,password,card) VALUES('A3A','BB3','1233');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') INSERT user8(username,password,card) VALUES('A3A','BB3','1233')' at line 1
+mysql> DESC user8;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20) | NO   | UNI | NULL    |                |
+| password | varchar(32) | NO   | UNI | NULL    |                |
+| card     | varchar(30) | YES  | UNI | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM user8;
++----+----------+----------+------+
+| id | username | password | card |
++----+----------+----------+------+
+|  1 | AA       | BB       | 123  |
++----+----------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT user8 VALUES('223','2','123456');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT user8 VALUES(2,'223','2','123456');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> \t
