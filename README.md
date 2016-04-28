@@ -190,12 +190,14 @@ username VARCHAR(20)
 
 ### 查看创建表信息
 
-```SHOW CREATE TABLE user1;
+```
+SHOW CREATE TABLE user1;
 ```
 
 ## 多字段主键 复合主键
 
-```CREATE TABLE IF NOT EXISTS user2(
+```
+CREATE TABLE IF NOT EXISTS user2(
 id INT,
 usernae VARCHAR(20),
 card char(18),
@@ -206,7 +208,8 @@ PRIMARY KEY(id,card)
 ## 测试自增
 一个表只能有一个自增长 针对整形
 
-```CREATE TABLE IF NOT EXISTS user3(
+```
+CREATE TABLE IF NOT EXISTS user3(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20)
 );
@@ -218,17 +221,22 @@ username VARCHAR(20)
 
 //修改自增长值
 
-```ALTER TABLE user4 AUTO\_INCREMENT = 200;
+```
+ALTER TABLE user4 AUTO\_INCREMENT = 200;
 ```
 ## 测试非空
+
+```
 CREATE TABLE IF NOT EXISTS user5(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20) NOT NULL,
 password CHAR(32) NOT NULL,
 age TINYINT UNSIGNED
 );
+```
 ## 测试默认值
-CREATE TABLE IF NOT EXISTS user7(
+
+```CREATE TABLE IF NOT EXISTS user7(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password CHAR(32) NOT NULL,
@@ -236,22 +244,28 @@ age TINYINT,
 addr VARCHAR(30) NOT NULL DEFAULT '北京',
 sex ENUM('男','女','保密') NOT NULL DEFAULT '保密'
 );
+```
 
 ## 测试unique
-CREATE TABLE IF NOT EXISTS user8(
+
+```CREATE TABLE IF NOT EXISTS user8(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password VARCHAR(32) NOT NULL UNIQUE,
 card VARCHAR(30) UNIQUE
 );
+```
 
 
 # SQL总结
-CREATE TABLE [IF NOT EXISTS] table\_name(
+
+```CREATE TABLE [IF NOT EXISTS] table\_name(
 字段名 字段类型[UNSIGNED| ZEROFILL] [NOT NULL] [DEFAULT默认值] [[PRIMARY] KEY] [UNIQUE KEY] [AUTO\_INCREMENT]
 )ENGINE = INNODB CHARASET = UTF8 AUTO\_INCREMENT =100;
+```
 # 创建用户表
-CREATE TABLE IF NOT EXISTS user10(
+
+```CREATE TABLE IF NOT EXISTS user10(
 id INT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password CHAR(32) NOT NULL,
@@ -262,79 +276,101 @@ sallary FLOAT(6,2),
 regTime  INT UNSIGNED,
 face CHAR(100) NOT NULL DEFAULT 'default.jpg'
 );
+```
 
 ##修改表名
-ALTER TABLE tab_name RENAME  TO new_table_name;
+
+```ALTER TABLE tab_name RENAME  TO new_table_name;
 ALTER TABLE user10 RENAME TO user9;
 ALTER TABLE user10 RENAME AS user9;
 ALTER TABLE user10 REAME user9;
 
 RENAME TABLE tab_name TO new_tab_name;
 RENAME TABLE user10 TO user9;TO不可以省略.
+```
 
 #添加删除字段
 ALTER TABLE tab_name ADD
 ##添加card字段
-ALTER TABLE user9 ADD card CHAR(18);
+
+```ALTER TABLE user9 ADD card CHAR(18);
 
 after 
 ALTER TABLE user9 ADD test3 VARCHAR(20) NOT NULL DEFAULT 100 AFTER username;
 ALTER TABLE user9 ADD test2 VARCHAR(20) NOT NULL FIRST;
+```
 
 ##添加多个字段
  ALTER TABLE user9 ADD test4 INT NOT NULL DEFAULT 123 AFTER password,
     -> ADD test5 FLOAT(6,2) FIRST,
     -> ADD test6 SET('A','B','C');
 #删除
-ALTER TABLE user9 DROP test6;
+
+```ALTER TABLE user9 DROP test6;
 ALTER TABLE user9
 DROP test2,
 DROP test3,
 DROP test4;
+```
 
 ##添加test9 删除address
-ALTER TABLE user9 
+
+```ALTER TABLE user9 
 ADD test9 INT NOT NULL DEFAULT 10 AFTER age,
 DROP address;
+```
 
 #修改字段MODIFY
-
 ALTER TABLE tab_name MODIFY;
-//修改长度
-ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL DEFAULT 'jankz@jankz.com';
-//移动字段位置
-ALTER TABLE user10 MODIFY card VARCHAR(20) AFTER test9;
-//
+修改长度
+
+```ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL DEFAULT 'jankz@jankz.com';
+```
+移动字段位置
+
+```ALTER TABLE user10 MODIFY card VARCHAR(20) AFTER test9;
+```
 #修改字段名称CHANGE
-ALTER TABLE tab_name  CHANGE
+
+```ALTER TABLE tab_name  CHANGE
 ALTER TABLE user10 CHANGE test9 test10 CHAR(32) NOT NULL DEFAULT 'JANKZ';
 ALTER TABLE user9 CHANGE test10 test10 INT NOT NULL DEFAULT 12;
+```
 #删除默认值
-CREATE TABLE IF NOT EXISTS test12(
+
+```CREATE TABLE IF NOT EXISTS test12(
 id TINYINT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 age TINYINT UNSIGNED
 );
+```
 
-//添加默认值
-ALTER TABLE test12 ALTER age SET DEFAULT 18;
+添加默认值
 
-//删除默认值
-ALTER TABLE tab_name ALTER 字段 DROP DEFAULT;
+```ALTER TABLE test12 ALTER age SET DEFAULT 18;
+```
+
+删除默认值
+
+```ALTER TABLE tab_name ALTER 字段 DROP DEFAULT;
+```
 #主键
-//添加主键
-ALTER TABLE tab_name ADD PRIMARY KEY (id);
+添加主键
+
+```ALTER TABLE tab_name ADD PRIMARY KEY (id);
 ALTER TABLE tab_name ADD PRIMARY KEY (id,card);
+```
 
-//删除主键
-
-ALTER TABLE tab_name DROP PRIMARY KEY;
+删除主键
+```ALTER TABLE tab_name DROP PRIMARY KEY;
+```
 
 
 #删除唯一
 
 
 ##添加唯一索引
+```
 CREATE TABLE IF NOT EXISTS user12(
 id TINYINT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL,
@@ -342,6 +378,7 @@ card CHAR(18) NOT NULL,
 test VARCHAR(20) NOT NULL,
 test1 VARCHAR(32) NOT NULL
 );
+```
 //添加唯一索引
 ALTER TABLE user12 ADD UNIQUE (username);
 //
@@ -361,7 +398,8 @@ ALTER TABLE user_12 AUTO_INCREMENT=100;
 
 
 #插入记录
-CREATE TABLE IF NOT EXISTS user13(
+
+```CREATE TABLE IF NOT EXISTS user13(
 id INT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(30) NOT NULL,
 password VARCHAR(32) NOT NULL,
@@ -372,6 +410,7 @@ INSERT tab_name(字段) VALUES(值),(值),(...);
 
 INSERT user13(username,password,email) VALUES('A','B','C1'),('g','s','d');
 
+```
 ##将查询结果放入表中
 CREATE TABLE IF NOT EXISTS testuser(
 id TINYINT UNSIGNED KEY AUTO_INCREMENT,
@@ -439,40 +478,57 @@ SELECT * FROM cms_user WHERE username in('king','queen','张三');
 ##模糊查询 LIKE NOT LIKE
 --模糊查询% 代表 0个1个或者任意多个
 _:代表1个人一个
-SELECT * FROM cms_user WHERE username LIKE '%张%';//包含
+
+```SELECT * FROM cms_user WHERE username LIKE '%张%';//包含
 SELECT * FROM cms_user WHERE username LIKE '张%';
+```
 
 --查询用户名为三位的用户;
-SELECT *FROM cms_user WHERE username LIKE '___';
+
+```SELECT *FROM cms_user WHERE username LIKE '___';
 
 SELECT *FROM cms_user WHERE username LIKE '_i%';
+```
 ##逻辑运算符
 AND 并且 ,OR 或者.
 --查询用户名king密码king;\
-SELECT * FROM cms_user WHERE username = 'king' AND password = 'king';
+
+```SELECT * FROM cms_user WHERE username = 'king' AND password = 'king';
+```
 --查询标号大于等于3年龄不为NULL
-SELECT * FROM cms_user WHERE id>=3 AND age IS NULL;
+
+```SELECT * FROM cms_user WHERE id>=3 AND age IS NULL;
+```
 
 ##分组查询
 --按照用户所属身份分组proid
-SELECT * FROM cms_user GROUP BY proid;
+
+```SELECT * FROM cms_user GROUP BY proid;
+```
 //实测没用啊
 
 --按照多个字段分组
-SELECT * FROM cms_user GROUP BY id;
+
+```SELECT * FROM cms_user GROUP BY id;
 SELECT * FROM cms_user WHERE id>=5 GROUP BY sex;
+```
 --查询 id,sex,用户名按照性别分组
-SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
+
+```SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
+```
 
 ##统计记录
-SELECT COUNT(*) AS totalUsers FROM cms_user;
+
+```SELECT COUNT(*) AS totalUsers FROM cms_user;
 SELECT COUNT(id) AS totalUsers FROM cms_user;
 
 SELECT COUNT(age) AS totalUsers FROM cms_user;//不统计NULL值
+```
 
 --编号 性别 用户名详情 组中最大最小平均年龄 年龄总和.
 
-SELECT id,sex GROUP_CONCAT(username)
+
+```SELECT id,sex GROUP_CONCAT(username)
 COUNT(*) AS totalUsers,
 MAX(age) AS max_age,
 MIN(age) AS min_age,
@@ -483,10 +539,12 @@ SUM(age) AS sum_age,
 
 FROM cms_user,
 GROUP BY sex;
+```
 
 ##having
 --查询sex
-SELECT sex,GROUP_CONCAT(username) AS users,
+
+```SELECT sex,GROUP_CONCAT(username) AS users,
 COUNT(*) AS totalUsers,
 MAX(age) AS max_age,
 MIN(age) AS min_age,
@@ -496,43 +554,64 @@ FROM cms_user,
 GROUP BY sex,
 HAVING COUNT(*)>2 AND MAX(age)>60;
 
+```
 
 ##正则表达式
 REGEXP'匹配方式'
 ###  ^  匹配字符开始
-//查询t开头
-SELECT * FROM cms_user WHERE username REGEXP '^t';
+查询t开头
+
+```SELECT * FROM cms_user WHERE username REGEXP '^t';
+```
 ### $  匹配字符串结尾
-//查询g结尾
-SELECT * FROM cms_user WHERE username REGEXP 'g$';
+查询g结尾
+
+```SELECT * FROM cms_user WHERE username REGEXP 'g$';
+```
 ### .代表字符串中任意一个字符
-SELECT * FROM cms_user WHERE username REGEXP '.';
+
+```SELECT * FROM cms_user WHERE username REGEXP '.';
 SELECT * FROM cms_user WHERE username REGEXP 'r..e';
+```
 ### []匹配任何一个
 [lto]
-SELECT * FROM cms_user WHERE username REGEXP '[lto]';
+
+```SELECT * FROM cms_user WHERE username REGEXP '[lto]';
+```
 ### [^]匹配除了字符集合任何一个
 [lto]
-SELECT * FROM cms_user WHERE username REGEXP '[^l]';
+
+```SELECT * FROM cms_user WHERE username REGEXP '[^l]';
+```
 
 ### [a-k]匹配a-k字符集合任何一个
 [lto]
-SELECT * FROM cms_user WHERE username REGEXP '[a-k]';
+
+```SELECT * FROM cms_user WHERE username REGEXP '[a-k]';
+```
 
 ### s1|s2|s3 匹配其中任何一个
 
-SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
+
+```SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
+```
 ### * 匹配 0 次 1次 多次  
 
-SELECT * FROM cms_user WHERE username REGEXP 'ng*';
+
+```SELECT * FROM cms_user WHERE username REGEXP 'ng*';
+```
 ### + 匹配 至少出现1次
 
-SELECT * FROM cms_user WHERE username REGEXP 'ng+';
+
+```SELECT * FROM cms_user WHERE username REGEXP 'ng+';
+```
 ### + 匹配 出现2次
 字符串{M,N}
 
-SELECT * FROM cms_user WHERE username REGEXP 'ng{2}';
+
+```SELECT * FROM cms_user WHERE username REGEXP 'ng{2}';
 SELECT * FROM cms_user WHERE username REGEXP 'ng{1,3}';
+```
 ##MySQL的运算符
 SELECT 1+1,1-3,4*3;
 SELECT 3 / 0;
@@ -549,8 +628,10 @@ SELECT id,username,username REGEXP '^t' FROM cms_user;
 
 #mysql函数
 ##数学函数
-SELECT NOW();
+
+```SELECT NOW();
 SELECT VERSION();
+```
 
 ###cell 取整
 ##字符串函数
