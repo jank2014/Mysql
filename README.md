@@ -199,7 +199,7 @@ fav SET('a','b','c','d')
 );
 ```
 
-## S日期类型
+## 日期类型
 ### Year类型
 
 ```
@@ -260,7 +260,7 @@ username VARCHAR(20)
 )AUTO\_INCREMENT = 100;
 ```
 
-//修改自增长值
+##修改自增长值
 
 ```
 ALTER TABLE user4 AUTO\_INCREMENT = 200;
@@ -277,7 +277,8 @@ age TINYINT UNSIGNED
 ```
 ## 测试默认值
 
-```CREATE TABLE IF NOT EXISTS user7(
+```
+CREATE TABLE IF NOT EXISTS user7(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password CHAR(32) NOT NULL,
@@ -289,7 +290,8 @@ sex ENUM('男','女','保密') NOT NULL DEFAULT '保密'
 
 ## 测试unique
 
-```CREATE TABLE IF NOT EXISTS user8(
+```
+CREATE TABLE IF NOT EXISTS user8(
 id INT PRIMARY KEY AUTO\_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password VARCHAR(32) NOT NULL UNIQUE,
@@ -300,13 +302,15 @@ card VARCHAR(30) UNIQUE
 
 # SQL总结
 
-```CREATE TABLE [IF NOT EXISTS] table\_name(
+```
+CREATE TABLE [IF NOT EXISTS] table\_name(
 字段名 字段类型[UNSIGNED| ZEROFILL] [NOT NULL] [DEFAULT默认值] [[PRIMARY] KEY] [UNIQUE KEY] [AUTO\_INCREMENT]
 )ENGINE = INNODB CHARASET = UTF8 AUTO\_INCREMENT =100;
 ```
 # 创建用户表
 
-```CREATE TABLE IF NOT EXISTS user10(
+```
+CREATE TABLE IF NOT EXISTS user10(
 id INT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 password CHAR(32) NOT NULL,
@@ -321,7 +325,8 @@ face CHAR(100) NOT NULL DEFAULT 'default.jpg'
 
 ##修改表名
 
-```ALTER TABLE tab_name RENAME  TO new_table_name;
+```
+ALTER TABLE tab_name RENAME  TO new_table_name;
 ALTER TABLE user10 RENAME TO user9;
 ALTER TABLE user10 RENAME AS user9;
 ALTER TABLE user10 REAME user9;
@@ -334,7 +339,8 @@ RENAME TABLE user10 TO user9;TO不可以省略.
 ALTER TABLE tab_name ADD
 ##添加card字段
 
-```ALTER TABLE user9 ADD card CHAR(18);
+```
+ALTER TABLE user9 ADD card CHAR(18);
 
 after 
 ALTER TABLE user9 ADD test3 VARCHAR(20) NOT NULL DEFAULT 100 AFTER username;
@@ -399,7 +405,8 @@ ALTER TABLE test12 ALTER age SET DEFAULT 18;
 
 ##删除默认值
 
-```ALTER TABLE tab_name ALTER 字段 DROP DEFAULT;
+```
+ALTER TABLE tab_name ALTER 字段 DROP DEFAULT;
 ```
 #主键
 ##添加主键
@@ -699,7 +706,8 @@ SELECT id,username,username REGEXP '^t' FROM cms_user;
 #mysql函数
 ##数学函数
 
-```SELECT NOW();
+```
+SELECT NOW();
 SELECT VERSION();
 ```
 
@@ -734,6 +742,7 @@ card CHAR(18) NOT NULL,
 UNIQUE KEY uni_card(card)
 );
 ```
+
 ##创建全文索引 
 
 
@@ -779,7 +788,6 @@ INDEX mul_t1_t2_t3(test1,test2,test3)
 ```
 
 ##创建空间索引
-
 ```
 CREATE TABLE testindex6(
 id TINYINT UNSIGNED AUTO_INCREMENT KEY,
@@ -790,13 +798,11 @@ SPATIAL INDEX spa_test(test)
 
 #删除索引
 ##普通索引
-
 ```
 DROP INDEX in_id ON test4;
 DROP INDEX in_username ON test4;
 ```
 ##创建索引
-
 ```
 CREATE INDEX in_id ON test4(id);
 CREATE UNIQUE INDEX uni_username ON test4(username);
@@ -805,14 +811,11 @@ ALTER TABLE test4 ADD UNIQUE INDEX uni_card(card);
 
 ALTER TABLE test4 ADD INDEX in_username(username);
 ```
- 
 ##删除唯一索引
-
 ```
 ALTER TABLE testindex4 DROP INDEX uni_card;
 DROP INDEX username ON test4; 
 ```
-
 
 ##删除全文索引
 
