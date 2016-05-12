@@ -6,37 +6,57 @@
 
 ## 查看数据库
 
-```SHOW DATABASES; SHOW SCHEMAS
+
 ```
+SHOW DATABASES; SHOW SCHEMAS
+```
+
 ## 创建数据库
 
-```CREATE DATABASE IF NOT EXISTS maizi2 DEFAULT CHARACTER SET = 'GBK';
+
+```
+CREATE DATABASE IF NOT EXISTS maizi2 DEFAULT CHARACTER SET = 'GBK';
 ```
 
 ## 使用 打开数据库
 
-```USE DATABASE;  SELECT DATABASE();
+
 ```
+USE DATABASE;  SELECT DATABASE();
+```
+
 ## 删除
 
-```DROP DATABASE IF EXISTS DB\_NAME;
+
+```
+DROP DATABASE IF EXISTS DB\_NAME;
 ```
 
 ## 修改默认字符集
 
-``` ALTER DATABASE of DEFAULT CHARACTER SET =utf8;
+
+``` 
+ALTER DATABASE of DEFAULT CHARACTER SET =utf8;
 ```
+
 ## 查看警告
 
-```SHOW WARNINGS;
+
+```
+SHOW WARNINGS;
 ```
 ## 删除
 
-```DROP DATABASE db_name;
+
 ```
+DROP DATABASE db_name;
+```
+
 ## 查看引擎
 
-```SHOW ENGINES\G;
+
+```
+SHOW ENGINES\G;
 引擎参数
 \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* 1. row \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 	  Engine: InnoDB
@@ -51,7 +71,9 @@ Transactions: YES  是否支持事务
 
 ## 查看支持的引擎信息
 
-```SHOW VARIABLES LIKE 'have%';
+
+```
+SHOW VARIABLES LIKE 'have%';
  
 +------------------------+----------+
 | Variable\_name          | Value    |
@@ -73,12 +95,16 @@ Transactions: YES  是否支持事务
 
 
 ## 存储引擎区别
+
 Innodb
 MyISAM
 Memary
+
+
 ## 创建表
 
-```CREATE TABLE IF NOT EXISTS cms\_cate(
+```
+CREATE TABLE IF NOT EXISTS cms\_cate(
  id TINYINT,
  cateName VARCHAR(50),
  cate\_Desc VARCHAR(200)
@@ -94,9 +120,12 @@ isTop TINYINT(1) COMMENT '0代表不置顶,1代表置顶'
 );
 ```
 
+
 ## 测试整形
 
-```CREATE TABLE intest(
+
+```
+CREATE TABLE intest(
 num1 TINYINT,
 num2 SMALLINT,
 num3 MEDIUMINT,
@@ -105,17 +134,22 @@ num5 BIGINT
 );
 ```
 
+
 ## 无符号UNSINGED
 
-```CREATE TABLE unsingint(
+
+```
+CREATE TABLE unsingint(
 num1 TINYINT UNSINGED,
 num2 TINYINT
 );
 ```
+
 ## 显示长度 零填充
 
 
-```CREATE TABLE intest1(
+```
+CREATE TABLE intest1(
 num1 TINYINT(3) ZEROFILL,
 num2 SMALLINT ZEROFILL,
 num3 MEDIUMINT ZEROFILL,
@@ -126,7 +160,8 @@ num5 BIGINT ZEROFILL
 
 ## 测试浮点类型
 
-```CREATE TABLE ftest(
+```
+CREATE TABLE ftest(
 num1 FLOAT(6,2),
 num2 DOUBLE(6,2),
 num3 DECIMAL(6,2)//定点数
@@ -135,7 +170,8 @@ num3 DECIMAL(6,2)//定点数
 
 ## 测试字符串类型
 
-```CREATE TABLE chartest(
+```
+CREATE TABLE chartest(
 str1 CHAR(5),
 str2 VARCHAR(5)
 );
@@ -149,14 +185,16 @@ varchar 后面的空格会去掉
 
 ## 枚举类型
 
-```CREATE TABLE IF NOT EXISTS enutest(
+```
+CREATE TABLE IF NOT EXISTS enutest(
 sex ENUM('男','女','保密')
 );
 ```
 
 ## 集合类型
 
-```CREATE TABLE IF NOT EXISTS settest(
+```
+CREATE TABLE IF NOT EXISTS settest(
 fav SET('a','b','c','d')
 );
 ```
@@ -164,7 +202,8 @@ fav SET('a','b','c','d')
 ## S日期类型
 ### Year类型
 
-```CREATE TABLE yeartest(
+```
+CREATE TABLE yeartest(
 birth YEAR);
 ```
 两位输入 70-99 
@@ -173,7 +212,8 @@ birth YEAR);
 1-69
 ### time
 
-```CREATE TABLE timetest(
+```
+CREATE TABLE timetest(
 test TIME);
 ```
 
@@ -182,7 +222,8 @@ test TIME);
 但字段主键 多字段主键
 //测试主键
 
-```CREATE TABLE user1(
+```
+CREATE TABLE user1(
 id INT PRIMARY KEY,
 username VARCHAR(20)
 );
@@ -399,7 +440,8 @@ ALTER TABLE user_12 AUTO_INCREMENT=100;
 
 #插入记录
 
-```CREATE TABLE IF NOT EXISTS user13(
+```
+CREATE TABLE IF NOT EXISTS user13(
 id INT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(30) NOT NULL,
 password VARCHAR(32) NOT NULL,
@@ -479,13 +521,15 @@ SELECT * FROM cms_user WHERE username in('king','queen','张三');
 --模糊查询% 代表 0个1个或者任意多个
 _:代表1个人一个
 
-```SELECT * FROM cms_user WHERE username LIKE '%张%';//包含
+```
+SELECT * FROM cms_user WHERE username LIKE '%张%';//包含
 SELECT * FROM cms_user WHERE username LIKE '张%';
 ```
 
 --查询用户名为三位的用户;
 
-```SELECT *FROM cms_user WHERE username LIKE '___';
+```
+SELECT *FROM cms_user WHERE username LIKE '___';
 
 SELECT *FROM cms_user WHERE username LIKE '_i%';
 ```
@@ -493,33 +537,39 @@ SELECT *FROM cms_user WHERE username LIKE '_i%';
 AND 并且 ,OR 或者.
 --查询用户名king密码king;\
 
-```SELECT * FROM cms_user WHERE username = 'king' AND password = 'king';
+```
+SELECT * FROM cms_user WHERE username = 'king' AND password = 'king';
 ```
 --查询标号大于等于3年龄不为NULL
 
-```SELECT * FROM cms_user WHERE id>=3 AND age IS NULL;
+```
+SELECT * FROM cms_user WHERE id>=3 AND age IS NULL;
 ```
 
 ##分组查询
 --按照用户所属身份分组proid
 
-```SELECT * FROM cms_user GROUP BY proid;
+```
+SELECT * FROM cms_user GROUP BY proid;
 ```
 //实测没用啊
 
 --按照多个字段分组
 
-```SELECT * FROM cms_user GROUP BY id;
+```
+SELECT * FROM cms_user GROUP BY id;
 SELECT * FROM cms_user WHERE id>=5 GROUP BY sex;
 ```
 --查询 id,sex,用户名按照性别分组
 
-```SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
+```
+SELECT id,sex,GROUP_CONCAT(username) FROM cms_user GROUP BY sex;
 ```
 
 ##统计记录
 
-```SELECT COUNT(*) AS totalUsers FROM cms_user;
+```
+SELECT COUNT(*) AS totalUsers FROM cms_user;
 SELECT COUNT(id) AS totalUsers FROM cms_user;
 
 SELECT COUNT(age) AS totalUsers FROM cms_user;//不统计NULL值
@@ -528,7 +578,8 @@ SELECT COUNT(age) AS totalUsers FROM cms_user;//不统计NULL值
 --编号 性别 用户名详情 组中最大最小平均年龄 年龄总和.
 
 
-```SELECT id,sex GROUP_CONCAT(username)
+```
+SELECT id,sex GROUP_CONCAT(username)
 COUNT(*) AS totalUsers,
 MAX(age) AS max_age,
 MIN(age) AS min_age,
@@ -544,7 +595,8 @@ GROUP BY sex;
 ##having
 --查询sex
 
-```SELECT sex,GROUP_CONCAT(username) AS users,
+```
+SELECT sex,GROUP_CONCAT(username) AS users,
 COUNT(*) AS totalUsers,
 MAX(age) AS max_age,
 MIN(age) AS min_age,
@@ -561,55 +613,65 @@ REGEXP'匹配方式'
 ###  ^  匹配字符开始
 查询t开头
 
-```SELECT * FROM cms_user WHERE username REGEXP '^t';
+```
+SELECT * FROM cms_user WHERE username REGEXP '^t';
 ```
 ### $  匹配字符串结尾
 查询g结尾
 
-```SELECT * FROM cms_user WHERE username REGEXP 'g$';
+```
+SELECT * FROM cms_user WHERE username REGEXP 'g$';
 ```
 ### .代表字符串中任意一个字符
 
-```SELECT * FROM cms_user WHERE username REGEXP '.';
+```
+SELECT * FROM cms_user WHERE username REGEXP '.';
 SELECT * FROM cms_user WHERE username REGEXP 'r..e';
 ```
 ### []匹配任何一个
 [lto]
 
-```SELECT * FROM cms_user WHERE username REGEXP '[lto]';
+```
+SELECT * FROM cms_user WHERE username REGEXP '[lto]';
 ```
 ### [^]匹配除了字符集合任何一个
 [lto]
 
-```SELECT * FROM cms_user WHERE username REGEXP '[^l]';
+```
+SELECT * FROM cms_user WHERE username REGEXP '[^l]';
 ```
 
 ### [a-k]匹配a-k字符集合任何一个
 [lto]
 
-```SELECT * FROM cms_user WHERE username REGEXP '[a-k]';
+```
+SELECT * FROM cms_user WHERE username REGEXP '[a-k]';
 ```
 
 ### s1|s2|s3 匹配其中任何一个
 
 
-```SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
+```
+SELECT * FROM cms_user WHERE username REGEXP 'ng|qu';
 ```
 ### * 匹配 0 次 1次 多次  
 
 
-```SELECT * FROM cms_user WHERE username REGEXP 'ng*';
+```
+SELECT * FROM cms_user WHERE username REGEXP 'ng*';
 ```
 ### + 匹配 至少出现1次
 
 
-```SELECT * FROM cms_user WHERE username REGEXP 'ng+';
+```
+SELECT * FROM cms_user WHERE username REGEXP 'ng+';
 ```
 ### + 匹配 出现2次
 字符串{M,N}
 
 
-```SELECT * FROM cms_user WHERE username REGEXP 'ng{2}';
+```
+SELECT * FROM cms_user WHERE username REGEXP 'ng{2}';
 SELECT * FROM cms_user WHERE username REGEXP 'ng{1,3}';
 ```
 ##MySQL的运算符
@@ -643,9 +705,10 @@ SELECT VERSION();
 
 #索引
 一种特殊的数据结构 优化查询速度.
---创建索引
+##创建索引
 
-```CREATE TABLE testindex(
+```
+CREATE TABLE testindex(
 id TINYINT UNSIGNED,
 username VARCHAR(20),
 INDEX in_id(id),
@@ -653,19 +716,21 @@ KEY in_username(username)
 );
 ```
 
-	--创建唯一索引
+##创建唯一索引
 
-```CREATE TABLE testindex2(
+```
+CREATE TABLE testindex2(
 id TINYINT UNSIGNED AUTO_INCREMENT KEY,
 username VARCHAR(20) NOT NULL UNIQUE,
 card CHAR(18) NOT NULL,
 UNIQUE KEY uni_card(card)
 );
 ```
-	--创建全文索引 
+##创建全文索引 
 
 
-```CREATE TABLE testindex3(
+```
+CREATE TABLE testindex3(
 id TINYINT UNSIGNED AUTO_INCREMENT KEY,
 username VARCHAR(20) NOT NULL UNIQUE,
 userDesc CHAR(18) NOT NULL,
@@ -674,10 +739,11 @@ FULLTEXT INDEX full_userDesc(userDesc)
 ```
 
 
---创建单例索引
+##创建单列索引
 
 
-```CREATE TABLE testindex4(
+```
+CREATE TABLE testindex4(
 id TINYINT UNSIGNED AUTO_INCREMENT KEY,
 test1 VARCHAR(20) NOT NULL,
 test2 VARCHAR(20) NOT NULL,
@@ -689,7 +755,7 @@ INDEX in_test1(test1)
 );
 ```
 
---创建多列索引
+##创建多列索引
 
 ```
 CREATE TABLE testindex5(
@@ -704,7 +770,7 @@ INDEX mul_t1_t2_t3(test1,test2,test3)
 );
 ```
 
---创建空间索引
+##创建空间索引
 
 ```
 CREATE TABLE testindex6(
@@ -715,14 +781,16 @@ SPATIAL INDEX spa_test(test)
 ```
 
 #删除索引
-//普通索引
+##普通索引
 
-```DROP INDEX in_id ON test4;
+```
+DROP INDEX in_id ON test4;
 DROP INDEX in_username ON test4;
 ```
-//创建索引
+##创建索引
 
-```CREATE INDEX in_id ON test4(id);
+```
+CREATE INDEX in_id ON test4(id);
 CREATE UNIQUE INDEX uni_username ON test4(username);
 
 ALTER TABLE test4 ADD UNIQUE INDEX uni_card(card);
@@ -730,16 +798,18 @@ ALTER TABLE test4 ADD UNIQUE INDEX uni_card(card);
 ALTER TABLE test4 ADD INDEX in_username(username);
 ```
  
- //删除唯一索引
+##删除唯一索引
 
-```ALTER TABLE testindex4 DROP INDEX uni_card;
+```
+ALTER TABLE testindex4 DROP INDEX uni_card;
 DROP INDEX username ON test4; 
 ```
 
 
-//删除全文索引
+##删除全文索引
 
-```DROP INDEX full_userDesc ON test6;
+```
+DROP INDEX full_userDesc ON test6;
 CREATE FULLTEXT INDEX full_userDesc ON test6;
 
 ```
