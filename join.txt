@@ -1,0 +1,535 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Jzopen_            |
+| cms                |
+| csvt               |
+| hsc                |
+| join1              |
+| jzopen_test        |
+| jzopen_v1          |
+| jzopen_v2          |
+| kfw                |
+| maizi1             |
+| maizi3             |
+| mysql              |
+| ocmf_v1            |
+| ocr_v2             |
+| onethink1          |
+| opencmf_corethinkv |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| test               |
++--------------------+
+21 rows in set (0.01 sec)
+
+mysql> USE join1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_join1 |
++-----------------+
+| emp             |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE class1(
+    -> id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> name VHACHAR(30) NOT NULL,
+    -> email VARCHAR(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VHACHAR(30) NOT NULL,
+email VARCHAR(50))' at line 3
+mysql> CREATE TABLE class1(
+    -> CREATE TABLE class1( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VHACHAR(30) NOT NULL, email VARCHAR(50) NOT NULL );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CREATE TABLE class1( id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VHACHAR(30' at line 2
+mysql> SHOW CREATE TABLE emp;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                   |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| emp   | CREATE TABLE `emp` (
+  `ename` varchar(10) NOT NULL,
+  `hiredate` date DEFAULT NULL,
+  `sal` decimal(10,2) DEFAULT NULL,
+  `deptno` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE classone(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> name VHACHAR(32) NOT NULL
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VHACHAR(32) NOT NULL
+)' at line 3
+mysql> CREATE TABLE classone( id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(32) NOT NULL );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE classtwo( id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(32) NOT NULL );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_join1 |
++-----------------+
+| classone        |
+| classtwo        |
+| emp             |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT classone VALUES('Jankz');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT classone('name') VALUES('Jankz');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''name') VALUES('Jankz')' at line 1
+mysql> INSERT classone VALUES('1','Jankz');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT classone VALUES('Mankong');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT classone(name) VALUES('Mankong');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT classone(name) VALUES('Man');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT classone(name) VALUES('jack');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT classone(name) VALUES('jan');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM classone;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Jankz   |
+|  2 | Mankong |
+|  3 | Man     |
+|  4 | jack    |
+|  5 | jan     |
++----+---------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT classtwo(name) VALUES('JAN'),('JZ');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT classtwo(name) VALUES('MANKONG'),('JZOPEN');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT classtwo(name) VALUES('PHP'),('AJAX');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM classtwo;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | JAN     |
+|  2 | JZ      |
+|  3 | MANKONG |
+|  4 | JZOPEN  |
+|  5 | PHP     |
+|  6 | AJAX    |
++----+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM classone JOIN SELECT * FROM classtwo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM classtwo' at line 1
+mysql> SELECT * FROM classone JOIN SELECT * FROM classtwo ON classone.id = classtwo.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM classtwo ON classone.id = classtwo.id' at line 1
+mysql> SELECT * FROM classone LEFT JOIN SELECT * FROM classtwo ON classone.id = classtwo.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT * FROM classtwo ON classone.id = classtwo.id' at line 1
+mysql> SELECT * FROM classone LEFT JOIN classtwo ON classone.id = classtwo.id;
++----+---------+------+---------+
+| id | name    | id   | name    |
++----+---------+------+---------+
+|  1 | Jankz   |    1 | JAN     |
+|  2 | Mankong |    2 | JZ      |
+|  3 | Man     |    3 | MANKONG |
+|  4 | jack    |    4 | JZOPEN  |
+|  5 | jan     |    5 | PHP     |
++----+---------+------+---------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM classone RIGHT JOIN classtwo ON classone.id = classtwo.id;
++------+---------+----+---------+
+| id   | name    | id | name    |
++------+---------+----+---------+
+|    1 | Jankz   |  1 | JAN     |
+|    2 | Mankong |  2 | JZ      |
+|    3 | Man     |  3 | MANKONG |
+|    4 | jack    |  4 | JZOPEN  |
+|    5 | jan     |  5 | PHP     |
+| NULL | NULL    |  6 | AJAX    |
++------+---------+----+---------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM classone INNER JOIN classtwo ON classone.id = classtwo.id;
++----+---------+----+---------+
+| id | name    | id | name    |
++----+---------+----+---------+
+|  1 | Jankz   |  1 | JAN     |
+|  2 | Mankong |  2 | JZ      |
+|  3 | Man     |  3 | MANKONG |
+|  4 | jack    |  4 | JZOPEN  |
+|  5 | jan     |  5 | PHP     |
++----+---------+----+---------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE classone where id =3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id =3' at line 1
+mysql> DELETE FROM  classone where id =3;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM classone INNER JOIN classtwo ON classone.id = classtwo.id;
++----+---------+----+--------+
+| id | name    | id | name   |
++----+---------+----+--------+
+|  1 | Jankz   |  1 | JAN    |
+|  2 | Mankong |  2 | JZ     |
+|  4 | jack    |  4 | JZOPEN |
+|  5 | jan     |  5 | PHP    |
++----+---------+----+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM classone RIGHT JOIN classtwo ON classone.id = classtwo.id;
++------+---------+----+---------+
+| id   | name    | id | name    |
++------+---------+----+---------+
+|    1 | Jankz   |  1 | JAN     |
+|    2 | Mankong |  2 | JZ      |
+|    4 | jack    |  4 | JZOPEN  |
+|    5 | jan     |  5 | PHP     |
+| NULL | NULL    |  3 | MANKONG |
+| NULL | NULL    |  6 | AJAX    |
++------+---------+----+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM classone LEFT JOIN classtwo ON classone.id = classtwo.id;
++----+---------+------+--------+
+| id | name    | id   | name   |
++----+---------+------+--------+
+|  1 | Jankz   |    1 | JAN    |
+|  2 | Mankong |    2 | JZ     |
+|  4 | jack    |    4 | JZOPEN |
+|  5 | jan     |    5 | PHP    |
++----+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE classone ADD email VARCHAR(64) NOT NULL;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM classone;
++----+---------+-------+
+| id | name    | email |
++----+---------+-------+
+|  1 | Jankz   |       |
+|  2 | Mankong |       |
+|  4 | jack    |       |
+|  5 | jan     |       |
++----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE classone CHANGE email VARCHAR(64) NOT NULL DEFAULE jankz@jankz.com;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(64) NOT NULL DEFAULE jankz@jankz.com' at line 1
+mysql> ALTER TABLE classone CHANGE email VARCHAR(64) DEFAULE jankz@jankz.com;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VARCHAR(64) DEFAULE jankz@jankz.com' at line 1
+mysql> ALTER TABLE classone CHANGE email email  VARCHAR(64) DEFAULE jankz@jankz.com;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DEFAULE jankz@jankz.com' at line 1
+mysql> ALTER TABLE classone DROP email;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC classone;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(32) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE classone ADD email VARCHAR(60) NOT NULL DEFAULT 'jankz@jankz.com';
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC classone;
++-------+-------------+------+-----+-----------------+----------------+
+| Field | Type        | Null | Key | Default         | Extra          |
++-------+-------------+------+-----+-----------------+----------------+
+| id    | int(11)     | NO   | PRI | NULL            | auto_increment |
+| name  | varchar(32) | NO   |     | NULL            |                |
+| email | varchar(60) | NO   |     | jankz@jankz.com |                |
++-------+-------------+------+-----+-----------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM classone;
++----+---------+-----------------+
+| id | name    | email           |
++----+---------+-----------------+
+|  1 | Jankz   | jankz@jankz.com |
+|  2 | Mankong | jankz@jankz.com |
+|  4 | jack    | jankz@jankz.com |
+|  5 | jan     | jankz@jankz.com |
++----+---------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT classone(name) VALUES('Tang'),('GuShu';)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+    -> ;)
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> INSERT classone(name) VALUES('Tang'),('GuShu');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM classone;
++----+---------+-----------------+
+| id | name    | email           |
++----+---------+-----------------+
+|  1 | Jankz   | jankz@jankz.com |
+|  2 | Mankong | jankz@jankz.com |
+|  4 | jack    | jankz@jankz.com |
+|  5 | jan     | jankz@jankz.com |
+|  6 | Tang    | jankz@jankz.com |
+|  7 | GuShu   | jankz@jankz.com |
++----+---------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT one.id,one.name FROM classone AS one; 
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Jankz   |
+|  2 | Mankong |
+|  4 | jack    |
+|  5 | jan     |
+|  6 | Tang    |
+|  7 | GuShu   |
++----+---------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT one.id,one.name FROM classone AS one LEFT JOIN classtwo ON one.id = classtwo.id;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Jankz   |
+|  2 | Mankong |
+|  4 | jack    |
+|  5 | jan     |
+|  6 | Tang    |
+|  7 | GuShu   |
++----+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone LEFT JOIN classtwo ON classone.id = classtwo.id;
++----+---------+-----------------+------+--------+
+| id | name    | email           | id   | name   |
++----+---------+-----------------+------+--------+
+|  1 | Jankz   | jankz@jankz.com |    1 | JAN    |
+|  2 | Mankong | jankz@jankz.com |    2 | JZ     |
+|  4 | jack    | jankz@jankz.com |    4 | JZOPEN |
+|  5 | jan     | jankz@jankz.com |    5 | PHP    |
+|  6 | Tang    | jankz@jankz.com |    6 | AJAX   |
+|  7 | GuShu   | jankz@jankz.com | NULL | NULL   |
++----+---------+-----------------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone right JOIN classtwo ON classone.id = classtwo.id;
++------+---------+-----------------+----+---------+
+| id   | name    | email           | id | name    |
++------+---------+-----------------+----+---------+
+|    1 | Jankz   | jankz@jankz.com |  1 | JAN     |
+|    2 | Mankong | jankz@jankz.com |  2 | JZ      |
+| NULL | NULL    | NULL            |  3 | MANKONG |
+|    4 | jack    | jankz@jankz.com |  4 | JZOPEN  |
+|    5 | jan     | jankz@jankz.com |  5 | PHP     |
+|    6 | Tang    | jankz@jankz.com |  6 | AJAX    |
++------+---------+-----------------+----+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone inner JOIN classtwo ON classone.id = classtwo.id;
++----+---------+-----------------+----+--------+
+| id | name    | email           | id | name   |
++----+---------+-----------------+----+--------+
+|  1 | Jankz   | jankz@jankz.com |  1 | JAN    |
+|  2 | Mankong | jankz@jankz.com |  2 | JZ     |
+|  4 | jack    | jankz@jankz.com |  4 | JZOPEN |
+|  5 | jan     | jankz@jankz.com |  5 | PHP    |
+|  6 | Tang    | jankz@jankz.com |  6 | AJAX   |
++----+---------+-----------------+----+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone LEFT JOIN classtwo ON classone.id = classtwo.id;
++----+---------+-----------------+------+--------+
+| id | name    | email           | id   | name   |
++----+---------+-----------------+------+--------+
+|  1 | Jankz   | jankz@jankz.com |    1 | JAN    |
+|  2 | Mankong | jankz@jankz.com |    2 | JZ     |
+|  4 | jack    | jankz@jankz.com |    4 | JZOPEN |
+|  5 | jan     | jankz@jankz.com |    5 | PHP    |
+|  6 | Tang    | jankz@jankz.com |    6 | AJAX   |
+|  7 | GuShu   | jankz@jankz.com | NULL | NULL   |
++----+---------+-----------------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone cross JOIN classtwo ON classone.id = classtwo.id;
++----+---------+-----------------+----+--------+
+| id | name    | email           | id | name   |
++----+---------+-----------------+----+--------+
+|  1 | Jankz   | jankz@jankz.com |  1 | JAN    |
+|  2 | Mankong | jankz@jankz.com |  2 | JZ     |
+|  4 | jack    | jankz@jankz.com |  4 | JZOPEN |
+|  5 | jan     | jankz@jankz.com |  5 | PHP    |
+|  6 | Tang    | jankz@jankz.com |  6 | AJAX   |
++----+---------+-----------------+----+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *  FROM classone cross JOIN classtwo;
++----+---------+-----------------+----+---------+
+| id | name    | email           | id | name    |
++----+---------+-----------------+----+---------+
+|  1 | Jankz   | jankz@jankz.com |  1 | JAN     |
+|  2 | Mankong | jankz@jankz.com |  1 | JAN     |
+|  4 | jack    | jankz@jankz.com |  1 | JAN     |
+|  5 | jan     | jankz@jankz.com |  1 | JAN     |
+|  6 | Tang    | jankz@jankz.com |  1 | JAN     |
+|  7 | GuShu   | jankz@jankz.com |  1 | JAN     |
+|  1 | Jankz   | jankz@jankz.com |  2 | JZ      |
+|  2 | Mankong | jankz@jankz.com |  2 | JZ      |
+|  4 | jack    | jankz@jankz.com |  2 | JZ      |
+|  5 | jan     | jankz@jankz.com |  2 | JZ      |
+|  6 | Tang    | jankz@jankz.com |  2 | JZ      |
+|  7 | GuShu   | jankz@jankz.com |  2 | JZ      |
+|  1 | Jankz   | jankz@jankz.com |  3 | MANKONG |
+|  2 | Mankong | jankz@jankz.com |  3 | MANKONG |
+|  4 | jack    | jankz@jankz.com |  3 | MANKONG |
+|  5 | jan     | jankz@jankz.com |  3 | MANKONG |
+|  6 | Tang    | jankz@jankz.com |  3 | MANKONG |
+|  7 | GuShu   | jankz@jankz.com |  3 | MANKONG |
+|  1 | Jankz   | jankz@jankz.com |  4 | JZOPEN  |
+|  2 | Mankong | jankz@jankz.com |  4 | JZOPEN  |
+|  4 | jack    | jankz@jankz.com |  4 | JZOPEN  |
+|  5 | jan     | jankz@jankz.com |  4 | JZOPEN  |
+|  6 | Tang    | jankz@jankz.com |  4 | JZOPEN  |
+|  7 | GuShu   | jankz@jankz.com |  4 | JZOPEN  |
+|  1 | Jankz   | jankz@jankz.com |  5 | PHP     |
+|  2 | Mankong | jankz@jankz.com |  5 | PHP     |
+|  4 | jack    | jankz@jankz.com |  5 | PHP     |
+|  5 | jan     | jankz@jankz.com |  5 | PHP     |
+|  6 | Tang    | jankz@jankz.com |  5 | PHP     |
+|  7 | GuShu   | jankz@jankz.com |  5 | PHP     |
+|  1 | Jankz   | jankz@jankz.com |  6 | AJAX    |
+|  2 | Mankong | jankz@jankz.com |  6 | AJAX    |
+|  4 | jack    | jankz@jankz.com |  6 | AJAX    |
+|  5 | jan     | jankz@jankz.com |  6 | AJAX    |
+|  6 | Tang    | jankz@jankz.com |  6 | AJAX    |
+|  7 | GuShu   | jankz@jankz.com |  6 | AJAX    |
++----+---------+-----------------+----+---------+
+36 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM classone;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM classtwo;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT classtwo(name) SELECT name FROM classone;
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT COUNT(*) FROM classtwo;
++----------+
+| COUNT(*) |
++----------+
+|       12 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM classtwo;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | JAN     |
+|  2 | JZ      |
+|  3 | MANKONG |
+|  4 | JZOPEN  |
+|  5 | PHP     |
+|  6 | AJAX    |
+|  7 | Jankz   |
+|  8 | Mankong |
+|  9 | jack    |
+| 10 | jan     |
+| 11 | Tang    |
+| 12 | GuShu   |
++----+---------+
+12 rows in set (0.00 sec)
+
+mysql> (SELECT COUNT(*) FROM classone) UNION(SELECT COUNT(*) FROM classtwo);
++----------+
+| COUNT(*) |
++----------+
+|        6 |
+|       12 |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT classone.id,classone.name FROM classone;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Jankz   |
+|  2 | Mankong |
+|  4 | jack    |
+|  5 | jan     |
+|  6 | Tang    |
+|  7 | GuShu   |
++----+---------+
+6 rows in set (0.00 sec)
+
+mysql> (SELECT classone.id,classone.name FROM classone) UNION(SELECT * FROM classtwo);
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Jankz   |
+|  2 | Mankong |
+|  4 | jack    |
+|  5 | jan     |
+|  6 | Tang    |
+|  7 | GuShu   |
+|  1 | JAN     |
+|  2 | JZ      |
+|  3 | MANKONG |
+|  4 | JZOPEN  |
+|  5 | PHP     |
+|  6 | AJAX    |
+|  7 | Jankz   |
+|  8 | Mankong |
+|  9 | jack    |
+| 10 | jan     |
+| 11 | Tang    |
+| 12 | GuShu   |
++----+---------+
+18 rows in set (0.01 sec)
+
+mysql> \t
