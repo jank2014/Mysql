@@ -704,6 +704,7 @@ SELECT id,username,username REGEXP '^t' FROM cms_user;
 
 
 #mysql函数
+
 ##数学函数
 
 ```
@@ -712,11 +713,8 @@ SELECT VERSION();
 ```
 
 ###cell 取整
+
 ##字符串函数
-
-
-
-
 
 
 #索引
