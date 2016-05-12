@@ -347,7 +347,8 @@ ALTER TABLE user9 ADD test2 VARCHAR(20) NOT NULL FIRST;
     -> ADD test6 SET('A','B','C');
 #删除
 
-```ALTER TABLE user9 DROP test6;
+```
+ALTER TABLE user9 DROP test6;
 ALTER TABLE user9
 DROP test2,
 DROP test3,
@@ -365,45 +366,52 @@ DROP address;
 ALTER TABLE tab_name MODIFY;
 修改长度
 
-```ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL DEFAULT 'jankz@jankz.com';
+```
+ALTER TABLE user9 MODIFY email VARCHAR(200) NOT NULL DEFAULT 'jankz@jankz.com';
 ```
 移动字段位置
 
-```ALTER TABLE user10 MODIFY card VARCHAR(20) AFTER test9;
+```
+ALTER TABLE user10 MODIFY card VARCHAR(20) AFTER test9;
 ```
 #修改字段名称CHANGE
 
-```ALTER TABLE tab_name  CHANGE
+```
+ALTER TABLE tab_name  CHANGE
 ALTER TABLE user10 CHANGE test9 test10 CHAR(32) NOT NULL DEFAULT 'JANKZ';
 ALTER TABLE user9 CHANGE test10 test10 INT NOT NULL DEFAULT 12;
 ```
 #删除默认值
 
-```CREATE TABLE IF NOT EXISTS test12(
+```
+CREATE TABLE IF NOT EXISTS test12(
 id TINYINT UNSIGNED KEY AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL UNIQUE,
 age TINYINT UNSIGNED
 );
 ```
 
-添加默认值
+##添加默认值
 
-```ALTER TABLE test12 ALTER age SET DEFAULT 18;
+```
+ALTER TABLE test12 ALTER age SET DEFAULT 18;
 ```
 
-删除默认值
+##删除默认值
 
 ```ALTER TABLE tab_name ALTER 字段 DROP DEFAULT;
 ```
 #主键
-添加主键
+##添加主键
 
-```ALTER TABLE tab_name ADD PRIMARY KEY (id);
+```
+ALTER TABLE tab_name ADD PRIMARY KEY (id);
 ALTER TABLE tab_name ADD PRIMARY KEY (id,card);
 ```
 
-删除主键
-```ALTER TABLE tab_name DROP PRIMARY KEY;
+##删除主键
+```
+ALTER TABLE tab_name DROP PRIMARY KEY;
 ```
 
 
