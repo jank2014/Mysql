@@ -363,7 +363,8 @@ DROP test4;
 
 ##添加test9 删除address
 
-```ALTER TABLE user9 
+```
+ALTER TABLE user9 
 ADD test9 INT NOT NULL DEFAULT 10 AFTER age,
 DROP address;
 ```
